@@ -31,7 +31,7 @@
 <meta property="og:description" content="LeetCode365.水壶问题这题我只会数学解法，太菜了😭其实第一眼没有思路，瞄了一眼标签是“数学”，就开始推公式假设容量为x升的水壶进行了a次操作，容量为y升的水壶进行了b次操作，最终两水壶中的水总共是z升。可以得到公式：  \ a \times \ x + \ b \times \ y &#x3D; zemm，好眼熟的公式，好像是斐蜀定理。。。 斐蜀定理 对于任意正整数a，b，那么一定存在非零整数x">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-20T17:48:16.000Z">
-<meta property="article:modified_time" content="2020-03-20T18:07:29.325Z">
+<meta property="article:modified_time" content="2020-03-21T07:07:44.569Z">
 <meta property="article:author" content="Tabris Chen">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="数学">
@@ -228,7 +228,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-21 01:48:16 / 修改时间：02:07:29" itemprop="dateCreated datePublished" datetime="2020-03-21T01:48:16+08:00">2020-03-21</time>
+              <time title="创建时间：2020-03-21 01:48:16 / 修改时间：15:07:44" itemprop="dateCreated datePublished" datetime="2020-03-21T01:48:16+08:00">2020-03-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>583</span>
+              <span>581</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -278,7 +278,9 @@
 <h2 id="斐蜀定理"><a href="#斐蜀定理" class="headerlink" title="斐蜀定理"></a>斐蜀定理</h2><blockquote>
 <p>对于任意正整数a，b，那么一定存在非零整数x，y，使得<script type="math/tex">a \times x + b \times y = gcd(a,\ b)</script></p>
 </blockquote>
-<p>再扩展一下，对于这道题的方程<script type="math/tex">a \times x + b \times y = z，</script><br>当且仅当<script type="math/tex">z\ |\ gcd(x,\ y)</script>时该二元不定方程才有整数解。因此这道题就可以解决了。<br>也就意味着当<script type="math/tex">x \ + \ y \ge \ z</script>时应满足：<script type="math/tex">z \ mod\  gcd(x,\ y)=0,</script>OK了。<br>代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b, a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canMeasureWater</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x || !y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x == z || y == z) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">if</span>(x + y &lt; z) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> !(z % gcd(x, y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>好像还有BFS的解法，打算再看一下。</p>
+<p>再扩展一下，对于这道题的方程<script type="math/tex">a \times x + b \times y = z，</script><br>当且仅当<script type="math/tex">z\ |\ gcd(x,\ y)</script>时该二元不定方程才有整数解。因此这道题就可以解决了。<br>也就意味着当<script type="math/tex">x \ + \ y \ge \ z</script>时应满足：<script type="math/tex">z \ mod\  gcd(x,\ y)=0</script>，OK了。</p>
+<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b, a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canMeasureWater</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x || !y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x == z || y == z) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">if</span>(x + y &lt; z) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> !(z % gcd(x, y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好像还有BFS的解法，打算再看一下。</p>
 
     </div>
 
@@ -380,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode365-水壶问题"><span class="nav-number">1.</span> <span class="nav-text">LeetCode365.水壶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#这题我只会数学解法，太菜了😭"><span class="nav-number">1.1.</span> <span class="nav-text">这题我只会数学解法，太菜了😭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斐蜀定理"><span class="nav-number">1.2.</span> <span class="nav-text">斐蜀定理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode365-水壶问题"><span class="nav-number">1.</span> <span class="nav-text">LeetCode365.水壶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#这题我只会数学解法，太菜了😭"><span class="nav-number">1.1.</span> <span class="nav-text">这题我只会数学解法，太菜了😭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斐蜀定理"><span class="nav-number">1.2.</span> <span class="nav-text">斐蜀定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码："><span class="nav-number">1.3.</span> <span class="nav-text">代码：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
