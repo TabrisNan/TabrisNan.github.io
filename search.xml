@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>LeetCode365.水壶问题</title>
+    <url>/2020/03/21/20200321LeetCode/</url>
+    <content><![CDATA[<h1 id="LeetCode365-水壶问题"><a href="#LeetCode365-水壶问题" class="headerlink" title="LeetCode365.水壶问题"></a><a href="https://leetcode-cn.com/problems/water-and-jug-problem/" target="_blank" rel="noopener">LeetCode365.水壶问题</a></h1><h2 id="这题我只会数学解法，太菜了😭"><a href="#这题我只会数学解法，太菜了😭" class="headerlink" title="这题我只会数学解法，太菜了😭"></a>这题我只会数学解法，太菜了😭</h2><p>其实第一眼没有思路，瞄了一眼标签是“数学”，就开始推公式<br>假设容量为x升的水壶进行了a次操作，容量为y升的水壶进行了b次操作，最终两水壶中的水总共是z升。可以得到公式：</p>
+<script type="math/tex; mode=display">
+\ a \times \ x + \ b \times \ y = z</script><p>emm，好眼熟的公式，好像是斐蜀定理。。。</p>
+<h2 id="斐蜀定理"><a href="#斐蜀定理" class="headerlink" title="斐蜀定理"></a>斐蜀定理</h2><blockquote>
+<p>对于任意正整数a，b，那么一定存在非零整数x，y，使得<script type="math/tex">a \times x + b \times y = gcd(a,\ b)</script></p>
+</blockquote>
+<p>再扩展一下，对于这道题的方程<script type="math/tex">a \times x + b \times y = z，</script><br>当且仅当<script type="math/tex">z\ |\ gcd(x,\ y)</script>时该二元不定方程才有整数解。因此这道题就可以解决了。<br>也就意味着当<script type="math/tex">x \ + \ y \ge \ z</script>时应满足：<script type="math/tex">z \ mod\  gcd(x,\ y)=0,</script>OK了。<br>代码如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b, a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canMeasureWater</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x || !y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(x == z || y == z) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">if</span>(x + y &lt; z) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> !(z % gcd(x, y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>好像还有BFS的解法，打算再看一下。</p>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>数学</tag>
+        <tag>斐蜀定理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode面试题40.最小的K个数</title>
+    <url>/2020/03/20/20200320LeetCode/</url>
+    <content><![CDATA[<h1 id="LeetCode面试题40-最小的k个数"><a href="#LeetCode面试题40-最小的k个数" class="headerlink" title="LeetCode面试题40.最小的k个数"></a><a href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/" target="_blank" rel="noopener">LeetCode面试题40.最小的k个数</a></h1><h2 id="三种实现方法："><a href="#三种实现方法：" class="headerlink" title="三种实现方法："></a>三种实现方法：</h2><blockquote>
+<p>快速排序：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">int</span> i = l - <span class="number">1</span>, j = r + <span class="number">1</span>, mid = arr[l + r &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">do</span> i++; <span class="keyword">while</span>(arr[i] &lt; mid);</span><br><span class="line">      <span class="keyword">do</span> j--; <span class="keyword">while</span>(arr[j] &gt; mid);</span><br><span class="line">      <span class="keyword">if</span>(i &lt; j) swap(arr[i], arr[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(l, j, arr), quick_sort(j + <span class="number">1</span>, r, arr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>归并排序：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; temp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">int</span> mid = l + r &gt;&gt; <span class="number">1</span>, i = l, j = mid + <span class="number">1</span>, k = <span class="number">0</span>;</span><br><span class="line">    merge_sort(i, mid, arr, temp), merge_sort(j, r, arr, temp);</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid &amp;&amp; j &lt;= r)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[i] &lt;= arr[j]) temp[k++] = arr[i++];</span><br><span class="line">      <span class="keyword">else</span> temp[k++] = arr[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid) temp[k++] = arr[i++];</span><br><span class="line">    <span class="keyword">while</span>(j &lt;= r) temp[k++] = arr[j++];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = l, k = <span class="number">0</span>; i &lt;= r; i++, k++)</span><br><span class="line">      arr[i] = temp[k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>然鹅。。。以上两种方法都太菜了😳<br>最终解决方法：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">sort(arr.<span class="built_in">begin</span>(), arr.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure><br>Over！😂</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/03/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
