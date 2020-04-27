@@ -23,20 +23,24 @@
     var CONFIG = {"hostname":"tabrisnan.github.io","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="进程调度算法：根据系统的资源分配策略所规定的资源分配算法；不同的环境调度算法不同。 1.批处理系统批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。  1.1 先来先服务 first-come first-serverd（FCFS） 非抢占式的调度算法，按照请求的顺序进行调度。当每个进程就绪后，它加入就绪队列。当前正运行的进程停止执行，选择在就绪队">
+  <meta name="description" content="虚拟内存虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。虚拟内存允许执行中的进程只有部分在内存中，因此程序可以比物理内存大。而且虚拟内存将内存抽象成一个巨大的数组，将用户视界的逻辑内存与物理内存分离，使得程序员不受内存存储的限制。虚拟内存展现在程序员面前的是一个比物理内存要大得多的、地址连续的内存空间，而事实上是映射到支离破碎的物理内存，乃至磁盘上。 分页存储管理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="进程调度算法">
-<meta property="og:url" content="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="http://tabrisnan.github.io/2020/04/27/20200427_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="TabrisChen">
-<meta property="og:description" content="进程调度算法：根据系统的资源分配策略所规定的资源分配算法；不同的环境调度算法不同。 1.批处理系统批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。  1.1 先来先服务 first-come first-serverd（FCFS） 非抢占式的调度算法，按照请求的顺序进行调度。当每个进程就绪后，它加入就绪队列。当前正运行的进程停止执行，选择在就绪队">
+<meta property="og:description" content="虚拟内存虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。虚拟内存允许执行中的进程只有部分在内存中，因此程序可以比物理内存大。而且虚拟内存将内存抽象成一个巨大的数组，将用户视界的逻辑内存与物理内存分离，使得程序员不受内存存储的限制。虚拟内存展现在程序员面前的是一个比物理内存要大得多的、地址连续的内存空间，而事实上是映射到支离破碎的物理内存，乃至磁盘上。 分页存储管理">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-18T18:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-27T16:26:10.384Z">
+<meta property="article:published_time" content="2020-04-26T20:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-27T16:24:22.360Z">
 <meta property="article:author" content="Tabris Chen">
-<meta property="article:tag" content="进程调度算法">
+<meta property="article:tag" content="虚拟内存">
+<meta property="article:tag" content="分页">
+<meta property="article:tag" content="页面置换算法">
+<meta property="article:tag" content="分段">
+<meta property="article:tag" content="段页">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://tabrisnan.github.io/2020/04/27/20200427_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
 
 
 <script id="page-configurations">
@@ -49,7 +53,7 @@
   };
 </script>
 
-  <title>进程调度算法 | TabrisChen</title>
+  <title>内存管理 | TabrisChen</title>
   
 
 
@@ -202,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/27/20200427_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -215,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          进程调度算法
+          内存管理
         </h1>
 
         <div class="post-meta">
@@ -225,14 +229,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-19 02:00:00" itemprop="dateCreated datePublished" datetime="2020-04-19T02:00:00+08:00">2020-04-19</time>
+              <time title="创建时间：2020-04-27 04:00:00" itemprop="dateCreated datePublished" datetime="2020-04-27T04:00:00+08:00">2020-04-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-28 00:26:10" itemprop="dateModified" datetime="2020-04-28T00:26:10+08:00">2020-04-28</time>
+                <time title="修改时间：2020-04-28 00:24:22" itemprop="dateModified" datetime="2020-04-28T00:24:22+08:00">2020-04-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -276,36 +280,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="进程调度算法："><a href="#进程调度算法：" class="headerlink" title="进程调度算法："></a>进程调度算法：</h1><p>根据系统的资源分配策略所规定的资源分配算法；不同的环境调度算法不同。</p>
-<h2 id="1-批处理系统"><a href="#1-批处理系统" class="headerlink" title="1.批处理系统"></a>1.批处理系统</h2><p>批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
-<blockquote>
-<h3 id="1-1-先来先服务-first-come-first-serverd（FCFS）"><a href="#1-1-先来先服务-first-come-first-serverd（FCFS）" class="headerlink" title="1.1 先来先服务 first-come first-serverd（FCFS）"></a>1.1 先来先服务 first-come first-serverd（FCFS）</h3><blockquote>
-<p>非抢占式的调度算法，按照请求的顺序进行调度。<br>当每个进程就绪后，它加入就绪队列。当前正运行的进程停止执行，选择在就绪队列中存在时间最长的进程运行。<br>该算法既可以用于作业调度，也可以用于进程调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
-</blockquote>
-<h3 id="1-2-短作业优先-shortest-job-first（SJF）"><a href="#1-2-短作业优先-shortest-job-first（SJF）" class="headerlink" title="1.2 短作业优先 shortest job first（SJF）"></a>1.2 短作业优先 shortest job first（SJF）</h3><blockquote>
-<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。从后备队列中选择一个或若干个估计运行时间最短的作业，将它们调入内存运行。<br>长作业有可能会<strong>饿死（不是“死锁”）</strong>，处于一直等待短作业执行完毕的状态。因为如果一直有短作业到来，那么长作业永远得不到调度。</p>
-</blockquote>
-<h3 id="1-3-最短剩余时间优先-shortest-remaining-time-next（SRTN）"><a href="#1-3-最短剩余时间优先-shortest-remaining-time-next（SRTN）" class="headerlink" title="1.3 最短剩余时间优先 shortest remaining time next（SRTN）"></a>1.3 最短剩余时间优先 shortest remaining time next（SRTN）</h3><blockquote>
-<p>抢占式的调度算法，最短作业优先的抢占式版本。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较。如果新的进程需要的时间更少，则挂起当前进程，运行新的进程，否则新的进程等待。<strong>存在长进程饥饿的危险。</strong></p>
-</blockquote>
-</blockquote>
-<h2 id="2-交互式系统"><a href="#2-交互式系统" class="headerlink" title="2.交互式系统"></a>2.交互式系统</h2><p>交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
-<blockquote>
-<h3 id="2-1-时间片轮转"><a href="#2-1-时间片轮转" class="headerlink" title="2.1 时间片轮转"></a>2.1 时间片轮转</h3><blockquote>
-<p>按 FCFS 的原则将所有就绪进程排成队列。每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。<br>算法的效率和<strong>时间片的大小</strong>有很大关系：<br>进程切换要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间；如果时间片过长，那么实时性就不能得到保证。</p>
-</blockquote>
-<h3 id="2-2-优先级调度"><a href="#2-2-优先级调度" class="headerlink" title="2.2 优先级调度"></a>2.2 优先级调度</h3><blockquote>
-<p>为每个进程分配一个优先级，按优先级进行调度。<br>为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
-</blockquote>
-<h3 id="2-3-多级反馈队列"><a href="#2-3-多级反馈队列" class="headerlink" title="2.3 多级反馈队列"></a>2.3 多级反馈队列</h3><blockquote>
-<p>公认的一种较好的进程调度算法。<br>若一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。<br>多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,..(随着优先降低时间片变长)。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次（1 + 2 + 4 + 8 + 16 + 32 + 64 &gt; 100）。<br>每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。<br>可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
-</blockquote>
-</blockquote>
-<h2 id="3-实时系统"><a href="#3-实时系统" class="headerlink" title="3.实时系统"></a>3.实时系统</h2><blockquote>
-<p>实时系统要求一个请求在一个确定时间内得到响应。<br>分为硬实时和软实时，前者必须满足绝对的截止时间，后者可以容忍一定的超时。</p>
-</blockquote>
+        <h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。虚拟内存允许执行中的进程只有部分在内存中，因此程序可以比物理内存大。而且虚拟内存将内存抽象成一个巨大的数组，将用户视界的逻辑内存与物理内存分离，使得程序员不受内存存储的限制。虚拟内存展现在程序员面前的是一个比物理内存要大得多的、地址连续的内存空间，而事实上是映射到支离破碎的物理内存，乃至磁盘上。</p>
+<h1 id="分页存储管理"><a href="#分页存储管理" class="headerlink" title="分页存储管理"></a>分页存储管理</h1><p>逻辑空间分页，物理空间分块，页与块同样大，页连续块离散，用页号查页表，由硬件做转换，页面和内存块大小一般选为2的若干次幂。<br><strong>页表作用</strong>：实现从页号到物理地址的映射<br>将用户程序的逻辑地址空间分为若干个固定大小的区域，称为“页”或“页面”，典型的页面大小为1KB；相应地，内存空间分成若干个物理块，页和块的大小相等。可将用户程序的任一页放在内存的任一块中，实现了离散分配。<br>一个虚拟地址分成两个部分，前一部分存储页面号，后一部分存储偏移量。<br>内存管理单元（MMU）管理着地址空间和物理内存的转换，其中的<strong>页表</strong>（Page table）存储着页（程序地址空间）和页框（物理内存空间）的映射表。</p>
+<h1 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h1><p>在程序运行过程中，如果要访问的页面不在内存中，就会发生缺页中断，从而将缺页调入内存中。此时如果内存已无空闲空间，系统必须从内存中调出一个页面到磁盘对换区中来腾出空间。主要目标是使页面置换频率最低（缺页率最低）。</p>
+<ul>
+<li><strong>最佳置换算法</strong>：所选择的被换出的页面将是最长时间内不再被访问，通常可以保证获得最低的缺页率。（理想化的，不可实现，因为无法知道一个页面多长时间不再被访问）</li>
+<li><strong>最近最久未使用</strong>（<strong>LRU</strong>，Least Recently Used）：将最近最久未使用的页面换出。</li>
+<li><strong>最近未使用</strong>（<strong>NRU</strong>，Not Recently Used）：有两个状态位R与M，页面被访问时置R = 1， 页面被修改时置M = 1。<br>当发生缺页中断时，NRU 算法随机地从类编号最小的非空类中挑选一个页面将它换出。<br>NRU 优先换出已经被修改的脏页面（R=0，M=1），而不是被频繁使用的干净页面（R=1，M=0）。</li>
+<li><strong>先进先出</strong>（<strong>FIFO</strong>）：简单，但是会把经常被访问的页面换出，提高了缺页率。</li>
+<li><strong>第二次机会算法</strong> （FIFO的改进）：为每个页面设置了一个访问标志位R，对该页面访问时将该位置1；需要页面置换时，检查最老页面的R值，0立即替换；1则清零后放入链表尾部，重新搜索。</li>
+<li><strong>时钟</strong>（第二次机会算法的改进）：采用环形链表。</li>
+</ul>
+<h1 id="分段式存储管理"><a href="#分段式存储管理" class="headerlink" title="分段式存储管理"></a>分段式存储管理</h1><p>使用分页系统的一维地址空间，动态增长的特点会导致覆盖问题的出现。为了使程序和数据划分开来，不出现覆盖问题而使用分段，程序和数据就在逻辑上拥有独立的地址空间。<br>分段是一种二维结构，把每个表分成段，一个段构成一个独立的地址空间。每个段的长度可以不同，并且可以动态增长。</p>
+<h1 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h1><p>程序的地址空间划分成多个拥有独立地址空间的段，每个段上的地址空间划分成大小相同的页。这样既拥有分段系统的共享和保护，又拥有分页系统的虚拟内存功能。（地址空间分段，分段的基础上再分页）</p>
+<h1 id="分页与分段的比较"><a href="#分页与分段的比较" class="headerlink" title="分页与分段的比较"></a>分页与分段的比较</h1><ul>
+<li>对程序员的透明性：分页透明，但是分段需要程序员显式划分每个段。</li>
+<li>地址空间的维度：分页是一维地址空间，分段是二维的。</li>
+<li>大小是否可以改变：页的大小不可变，段的大小可以动态改变。</li>
+<li>出现的原因：分页主要用于实现虚拟内存，从而获得更大的地址空间；分段主要是为了使程序和数据可以被划分为逻辑上独立的地址空间并且有助于共享和保护。</li>
+</ul>
 <hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://www.cnblogs.com/szitcast/p/10927375.html" target="_blank" rel="noopener">进程常用调度算法</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
 
     </div>
 
@@ -321,7 +316,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" title="进程调度算法">http://tabrisnan.github.io/2020/04/19/20200419_操作系统_进程调度算法/</a>
+    <a href="http://tabrisnan.github.io/2020/04/27/20200427_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="内存管理">http://tabrisnan.github.io/2020/04/27/20200427_操作系统_内存管理/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -333,7 +328,11 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 进程调度算法</a>
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 虚拟内存</a>
+              <a href="/tags/%E5%88%86%E9%A1%B5/" rel="tag"><i class="fa fa-tag"></i> 分页</a>
+              <a href="/tags/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 页面置换算法</a>
+              <a href="/tags/%E5%88%86%E6%AE%B5/" rel="tag"><i class="fa fa-tag"></i> 分段</a>
+              <a href="/tags/%E6%AE%B5%E9%A1%B5/" rel="tag"><i class="fa fa-tag"></i> 段页</a>
           </div>
 
         
@@ -342,13 +341,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/" rel="prev" title="进程状态">
-      <i class="fa fa-chevron-left"></i> 进程状态
+    <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" rel="prev" title="进程通信">
+      <i class="fa fa-chevron-left"></i> 进程通信
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/" rel="next" title="进程同步的四种方式">
-      进程同步的四种方式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -408,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程调度算法："><span class="nav-number">1.</span> <span class="nav-text">进程调度算法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-批处理系统"><span class="nav-number">1.1.</span> <span class="nav-text">1.批处理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-先来先服务-first-come-first-serverd（FCFS）"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 先来先服务 first-come first-serverd（FCFS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-短作业优先-shortest-job-first（SJF）"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 短作业优先 shortest job first（SJF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-最短剩余时间优先-shortest-remaining-time-next（SRTN）"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 最短剩余时间优先 shortest remaining time next（SRTN）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-交互式系统"><span class="nav-number">1.2.</span> <span class="nav-text">2.交互式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-时间片轮转"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 时间片轮转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-优先级调度"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 优先级调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-多级反馈队列"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 多级反馈队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实时系统"><span class="nav-number">1.3.</span> <span class="nav-text">3.实时系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分页存储管理"><span class="nav-number">2.</span> <span class="nav-text">分页存储管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#页面置换算法"><span class="nav-number">3.</span> <span class="nav-text">页面置换算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分段式存储管理"><span class="nav-number">4.</span> <span class="nav-text">分段式存储管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#段页式"><span class="nav-number">5.</span> <span class="nav-text">段页式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分页与分段的比较"><span class="nav-number">6.</span> <span class="nav-text">分页与分段的比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
