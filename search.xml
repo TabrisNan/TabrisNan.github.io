@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>设备管理</title>
+    <url>/2020/04/28/20200428_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h1><ul>
+<li><strong>盘面</strong>（Platter）：一个磁盘有多个盘面；</li>
+<li><strong>磁道</strong>（Track）：盘面上的圆形带状区域，一个盘面可以有多个磁道；</li>
+<li><strong>扇区</strong>（Track Sector）：磁道上的一个弧段，一个磁道可以有多个扇区，它是最小的物理储存单位，目前主要有 512 bytes 与 4 K 两种大小；</li>
+<li><strong>磁头</strong>（Head）：与盘面非常接近，能够将盘面上的磁场转换为电信号（读），或者将电信号转换为盘面的磁场（写）；</li>
+<li><strong>制动手臂</strong>（Actuator arm）：用于在磁道之间移动磁头；</li>
+<li><strong>主轴</strong>（Spindle）：使整个盘面转动。</li>
+</ul>
+<h1 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h1><p>读写一个磁盘块的时间的影响因素有：</p>
+<blockquote>
+<ul>
+<li><strong>旋转时间</strong>（主轴转动盘面，使得磁头移动到适当的扇区上）</li>
+<li><strong>寻道时间</strong>（制动手臂移动，使得磁头移动到适当的磁道上）</li>
+<li><strong>实际的数据传输时间</strong></li>
+</ul>
+</blockquote>
+<p>其中，寻道时间最长，因此磁盘调度的主要目标是使磁盘的平均寻道时间最短。</p>
+<h2 id="1-先来先服务-FCFS-First-Come-First-Served"><a href="#1-先来先服务-FCFS-First-Come-First-Served" class="headerlink" title="1. 先来先服务(FCFS, First Come First Served)"></a>1. 先来先服务(FCFS, First Come First Served)</h2><p>按照磁盘请求的顺序进行调度。<br>优点是公平和简单。缺点也很明显，因为未对寻道做任何优化，使平均寻道时间可能较长。</p>
+<h2 id="2-最短寻道时间优先-SSTF-Shortest-Seek-Time-First"><a href="#2-最短寻道时间优先-SSTF-Shortest-Seek-Time-First" class="headerlink" title="2. 最短寻道时间优先(SSTF, Shortest Seek Time First)"></a>2. 最短寻道时间优先(SSTF, Shortest Seek Time First)</h2><p>优先调度与当前磁头所在磁道距离最近的磁道。</p>
+<p>虽然平均寻道时间比较低，但是不够公平。如果新到达的磁道请求总是比一个在等待的磁道请求近，那么在等待的磁道请求会一直等待下去，也就是出现饥饿现象。具体来说，两端的磁道请求更容易出现饥饿现象。</p>
+<h2 id="3-电梯算法-SCAN，也称扫描算法"><a href="#3-电梯算法-SCAN，也称扫描算法" class="headerlink" title="3.电梯算法(SCAN，也称扫描算法)"></a>3.电梯算法(SCAN，也称扫描算法)</h2><p>电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</p>
+<p>电梯算法和电梯的运行过程类似，总是按一个方向来进行磁盘调度，直到该方向上没有未完成的磁盘请求，然后改变方向。</p>
+<p>因为考虑了移动方向，因此所有的磁盘请求都会被满足，解决了 SSTF 的饥饿问题。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>磁盘</tag>
+        <tag>磁盘调度算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>内存管理</title>
     <url>/2020/04/27/20200427_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>虚拟内存使得物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。虚拟内存允许执行中的进程只有部分在内存中，因此程序可以比物理内存大。而且虚拟内存将内存抽象成一个巨大的数组，将用户视界的逻辑内存与物理内存分离，使得程序员不受内存存储的限制。虚拟内存展现在程序员面前的是一个比物理内存要大得多的、地址连续的内存空间，而事实上是映射到支离破碎的物理内存，乃至磁盘上。</p>
