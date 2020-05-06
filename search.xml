@@ -1,9 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>数据链路层</title>
+    <url>/2020/05/05/20200505_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</url>
+    <content><![CDATA[<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>将比特组合成字节，再将字节组合成帧，使用链路层地址（以太网使用MAC地址）来访问介质，并进行差错检测。</p>
+<h1 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h1><p><img src="images/以太网帧格式.png" alt="alt"></p>
+<blockquote>
+<ul>
+<li>以太网目的地址源地址48位</li>
+<li>以太网的帧都有最小长度要求46字节</li>
+</ul>
+</blockquote>
+<p><img src="images/以太网帧格式2.png" alt="alt"></p>
+<blockquote>
+<ul>
+<li>类型 ：标记上层使用的协议；</li>
+<li>数据 ：长度在 46-1500 之间，如果太小则需要填充；</li>
+<li>FCS ：帧检验序列，使用的是 CRC 检验方法；</li>
+</ul>
+</blockquote>
+<h1 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h1><p>将网络层传下来的数据包（Packet）分组添加首部和尾部，用于标记帧的开始和结束。</p>
+<h1 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h1><p>透明表示一个实际存在的事物看起来好像不存在一样。（对特定类型用户不可见）</p>
+<p>帧使用首部和尾部进行定界，如果帧的数据部分含有和首部尾部相同的内容，那么帧的开始和结束位置就会被错误的判定。需要在数据部分出现首部尾部相同的内容前面插入转义字符。如果数据部分出现转义字符，那么就在转义字符前面再加个转义字符。在接收端进行处理之后可以还原出原始数据。这个过程透明传输的内容是转义字符，用户察觉不到转义字符的存在。</p>
+<h1 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h1><p>数据链路层广泛使用循环冗余检验（CRC）来检查比特差错。<br>发送方和接收放首先协商一个 r + 1 位的二进制数（生成多项式）。将要发送的数据左移 r 位后，除以协商好的二进制数。<br>接收方收到数据后，收到的数据除以生成多项式所得的余数为 0 则说明数据无差错。</p>
+<h1 id="信道分类"><a href="#信道分类" class="headerlink" title="信道分类"></a>信道分类</h1><h2 id="广播信道"><a href="#广播信道" class="headerlink" title="广播信道"></a>广播信道</h2><p>一对多通信，一个节点发送的数据能够被广播信道上所有的节点接收到。<br>所有的节点都在同一个广播信道上发送数据，因此需要有专门的控制方法进行协调，避免发生冲突（也称碰撞）。<br>主要有两种控制方法进行协调，一个是使用信道复用技术，一是使用 CSMA/CD 协议。</p>
+<h2 id="点对点信道"><a href="#点对点信道" class="headerlink" title="点对点信道"></a>点对点信道</h2><p>一对一通信。<br>不会发生碰撞，比较简单；使用 PPP 协议进行控制。</p>
+<h1 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h1><h2 id="1-频分复用"><a href="#1-频分复用" class="headerlink" title="1. 频分复用"></a>1. 频分复用</h2><p>频分复用的所有主机在相同的时间占用不同的频率带宽资源。</p>
+<h2 id="2-时分复用"><a href="#2-时分复用" class="headerlink" title="2. 时分复用"></a>2. 时分复用</h2><p>时分复用的所有主机在不同的时间占用相同的频率带宽资源。</p>
+<p><strong>以上两种通信方式在通信的过程中主机会一直占用一部分信道资源。但是由于计算机数据的突发性质，通信过程没必要一直占用信道资源而不让出给其它用户使用，因此这两种方式对信道的利用率都不高。</strong></p>
+<h2 id="3-统计时分复用"><a href="#3-统计时分复用" class="headerlink" title="3. 统计时分复用"></a>3. 统计时分复用</h2><p>对时分复用的一种改进，不固定每个用户在时分复用帧中的位置，只要有数据就集中起来组成统计时分复用帧然后发送。</p>
+<h2 id="4-波分复用"><a href="#4-波分复用" class="headerlink" title="4. 波分复用"></a>4. 波分复用</h2><p>光的频分复用。由于光的频率很高，因此习惯上用波长而不是频率来表示所使用的光载波。</p>
+<h2 id="5-码分复用"><a href="#5-码分复用" class="headerlink" title="5. 码分复用"></a>5. 码分复用</h2><h1 id="CSMA-CD-协议"><a href="#CSMA-CD-协议" class="headerlink" title="CSMA/CD 协议"></a>CSMA/CD 协议</h1><p>CSMA/CD 表示载波监听多点接入 / 碰撞检测。</p>
+<ul>
+<li>多点接入 ：说明这是总线型网络，许多主机以多点的方式连接到总线上。</li>
+<li>载波监听 ：每个主机都必须不停地监听信道。在发送前，如果监听到信道正在使用，就必须等待。</li>
+<li>碰撞检测 ：在发送中，如果监听到信道已有其它主机正在发送数据，就表示发生了碰撞。虽然每个主机在发送数据之前都已经监听到信道为空闲，但是由于电磁波的传播时延的存在，还是有可能会发生碰撞。</li>
+</ul>
+<h1 id="PPP-协议"><a href="#PPP-协议" class="headerlink" title="PPP 协议"></a>PPP 协议</h1><p>互联网用户通常需要连接到某个 ISP 之后才能接入到互联网，PPP 协议是用户计算机和 ISP 进行通信时所使用的数据链路层协议。</p>
+<h1 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h1><p>即最大传输单元， 属于链路层的传输特性，比MTU大的数据报需要“分片”。</p>
+<h1 id="MAC-地址"><a href="#MAC-地址" class="headerlink" title="MAC 地址"></a>MAC 地址</h1><p>物理地址。是链路层地址，长度为 6 字节（48 位），用于唯一标识网络适配器（网卡）。<br>一台主机拥有多少个网络适配器就有多少个 MAC 地址。例如笔记本电脑普遍存在无线网络适配器和有线网络适配器，因此就有两个 MAC 地址。</p>
+<h1 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h1><p>地址解析协议（Address Resolution Protocol），基本功能为通过目标设备的IP地址，查询目标设备的MAC地址，保证通信的顺利进行。它是 IPv4 中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。</p>
+<h1 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h1><p>局域网是一种典型的广播信道，主要特点是网络为一个单位所拥有，且地理范围和站点数目均有限。<br>主要有以太网、令牌环网、FDDI 和 ATM 等局域网技术，目前以太网占领着有线局域网市场。<br><img src="images/局域网类型.jpg" alt="alt"></p>
+<h1 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h1><p>以太网是一种星型拓扑结构局域网。</p>
+<p>早期使用集线器进行连接，集线器是一种物理层设备， 作用于比特而不是帧，当一个比特到达接口时，集线器重新生成这个比特，并将其能量强度放大，从而扩大网络的传输距离，之后再将这个比特发送到其它所有接口。如果集线器同时收到两个不同接口的帧，那么就发生了碰撞。</p>
+<p>目前以太网使用交换机替代了集线器，交换机是一种链路层设备，它不会发生碰撞，能根据 MAC 地址进行存储转发。</p>
+<h1 id="数据链路层设备：交换机"><a href="#数据链路层设备：交换机" class="headerlink" title="数据链路层设备：交换机"></a>数据链路层设备：交换机</h1><p>交换机具有自学习能力，学习的是交换表的内容，交换表中存储着 MAC 地址到接口的映射。<br>由于具有自学习能力，交换机是一种即插即用设备，不需要网络管理员手动配置交换表内容。</p>
+<h1 id="虚拟局域网"><a href="#虚拟局域网" class="headerlink" title="虚拟局域网"></a>虚拟局域网</h1><p>虚拟局域网可以建立与物理位置无关的逻辑组，只有在同一个虚拟局域网中的成员才会收到链路层广播信息。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>数据链路层</tag>
+        <tag>以太网帧格式</tag>
+        <tag>透明传输</tag>
+        <tag>差错检测</tag>
+        <tag>信道</tag>
+        <tag>CSMA/CD协议</tag>
+        <tag>PPP协议</tag>
+        <tag>MTU</tag>
+        <tag>MAC地址</tag>
+        <tag>ARP协议</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>物理层</title>
+    <url>/2020/05/05/20200504_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E7%89%A9%E7%90%86%E5%B1%82/</url>
+    <content><![CDATA[<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>物理层为设备之间的数据通信提供传输媒体及互连设备，为数据传输提供可靠的环境。</p>
+<h1 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h1><p>根据信息在传输线上的传送方向，分为以下三种通信方式：</p>
+<ul>
+<li>单工通信：单向传输</li>
+<li>半双工通信：双向交替传输</li>
+<li>全双工通信：双向同时传输</li>
+</ul>
+<h1 id="信号分类"><a href="#信号分类" class="headerlink" title="信号分类"></a>信号分类</h1><ul>
+<li>模拟信号：连续量</li>
+<li>数字信号：离散量，码元是代表不同离散数值的基本波形</li>
+</ul>
+<h1 id="基本带通调制方法"><a href="#基本带通调制方法" class="headerlink" title="基本带通调制方法"></a>基本带通调制方法</h1><p>带通调制把数字信号转换为模拟信号。</p>
+<ul>
+<li>调幅（AM）：调整振幅，垂直调整</li>
+<li>调频（FM）：调整频率，水平调整</li>
+<li>调相（PM）：初始相位的调整，移位调整。</li>
+</ul>
+<p><img src="images/调幅调频调相.jpg" alt="alt"></p>
+<h1 id="物理层设备（集线器、中继器）"><a href="#物理层设备（集线器、中继器）" class="headerlink" title="物理层设备（集线器、中继器）"></a>物理层设备（集线器、中继器）</h1><h2 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h2><ul>
+<li><p>诞生原因：由于存在损耗，在线路上传输的信号功率会逐渐衰减，衰减到一定程度时将造成信号失真，因此会导致接收错误。</p>
+</li>
+<li><p>中继器的功能：对信号进行再生和还原，对衰减的信号进行放大，保持与原数据相同，以增加信号传输的距离，延长网络的长度。简单来说，中继器就是在再生数字信号。</p>
+</li>
+</ul>
+<p><strong>中继器只将任何电缆段上的数据发送到另一端电缆上，它仅作用于信号的电气部分，并不管数据中是否有错误数据或不适于网段的数据。</strong></p>
+<h2 id="集线器（多口中继器）"><a href="#集线器（多口中继器）" class="headerlink" title="集线器（多口中继器）"></a>集线器（多口中继器）</h2><ul>
+<li>集线器的功能：对信号进行再生放大转发，对衰减的信号进行放大，接着转发到其他所有（除输入端口外）处于工作状态的端口上，以增加信号传输的距离，延长网络的长度。不具备定向传送信号的能力，属于共享式设备。（一般采用广播方式）</li>
+</ul>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/qq_37635157/article/details/104580707" target="_blank" rel="noopener">物理层设备</a></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>物理层</tag>
+        <tag>模拟信号</tag>
+        <tag>数字信号</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网络概述</title>
     <url>/2020/04/30/20200430_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<h1 id="互联网是网络的网络"><a href="#互联网是网络的网络" class="headerlink" title="互联网是网络的网络"></a>互联网是网络的网络</h1><p>网络把主机连接起来，而互连网（internet）是把多种不同的网络连接起来，因此互连网是网络的网络。而互联网（Internet）是全球范围的互连网。</p>
+    <content><![CDATA[<h1 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h1><p>以太网是一种计算机局域网技术。IEEE组织的IEEE 802.3标准制定了以太网的技术标准，它规定了包括物理层的连线、电子信号和介质访问层协议的内容。以太网是目前应用最普遍的局域网技术。<br>以太网有两类：第一类是经典以太网，第二类是交换式以太网，使用了一种称为交换机的设备连接不同的计算机。经典以太网是以太网的原始形式，运行速度从3~10 Mbps不等；而交换式以太网正是广泛应用的以太网，可运行在100、1000和10000Mbps那样的高速率，分别以快速以太网、千兆以太网和万兆以太网的形式呈现。</p>
+<h1 id="互联网是网络的网络"><a href="#互联网是网络的网络" class="headerlink" title="互联网是网络的网络"></a>互联网是网络的网络</h1><p>网络把主机连接起来，而互连网（internet）是把多种不同的网络连接起来，因此互连网是网络的网络。互联网（Internet）是全球范围的互连网。</p>
 <h1 id="ISP-网络服务提供商"><a href="#ISP-网络服务提供商" class="headerlink" title="ISP(网络服务提供商)"></a>ISP(网络服务提供商)</h1><p>互联网服务提供商 ISP 可以从互联网管理机构获得许多 IP 地址，同时拥有通信线路以及路由器等联网设备，个人或机构向 ISP 缴纳一定的费用就可以接入互联网。<br><img src="/images/ISP.png" alt="alt"></p>
 <p>目前的互联网是一种多层次 ISP 结构，ISP 根据覆盖面积的大小分为第一层 ISP、区域 ISP 和接入 ISP。互联网交换点 <strong>IXP</strong>(互联网交换中心，功能相当于计算机网络中所提及的交换机) 允许两个 ISP 直接相连而不用经过第三个 ISP。<br><img src="/images/ISP2.png" alt="alt"></p>
 <h1 id="主机之间的通信方式"><a href="#主机之间的通信方式" class="headerlink" title="主机之间的通信方式"></a>主机之间的通信方式</h1><ul>
@@ -27,11 +136,11 @@
 <ul>
 <li><p><strong>排队时延</strong>：分组在进入路由器后要先在输入队列中等待处理。在路由器确定了转发接口后还需要在输出队列中等待转发，所以就产生了排队时延。分组在路由器的输入队列和输出队列中排队等待的时间，取决于网络当前的通信量。</p>
 </li>
-<li><p><strong>处理时延</strong>：主机或者路由器在接受到分组时候要话费一定的时间进行处理，例如分析分组的首部，从分组中提取数据部分，运行差错检验或者查找适当的路由等等。</p>
+<li><p><strong>处理时延</strong>：主机或者路由器在接受到分组时候要花费一定的时间进行处理，例如分析分组的首部，从分组中提取数据部分，运行差错检验或是查找适当的路由等等。</p>
 </li>
 <li><p><strong>传输时延（发送时延）</strong>：主机或者路由器发送数据帧所需要的时间。<br><img src="images/传输时延计算公式.png" alt="alt"></p>
 </li>
-<li><p><strong>传播时延</strong>：电磁波在信道中传播一定距离需要话费的时间<br><img src="images/传播时延计算公式.png" alt="alt"></p>
+<li><p><strong>传播时延</strong>：电磁波在信道中传播一定距离需要花费的时间<br><img src="images/传播时延计算公式.png" alt="alt"></p>
 </li>
 </ul>
 <h1 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h1><p><img src="/images/计算机网络结构体系.png" alt="alt"></p>
@@ -56,7 +165,7 @@
 <p><strong>五层协议没有表示层和会话层，而是将这些功能留给应用程序开发者处理。</strong></p>
 <h1 id="3-TCP-IP"><a href="#3-TCP-IP" class="headerlink" title="3. TCP/IP"></a>3. TCP/IP</h1><p>它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。</p>
 <p>TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。</p>
-<h1 id="数据在各层之间的传递过程"><a href="#数据在各层之间的传递过程" class="headerlink" title="数据在各层之间的传递过程"></a>数据在各层之间的传递过程</h1><p>在向下的过程中，需要添加下层协议所需要的首部或者尾部，而在向上的过程中不断拆开首部和尾部。</p>
+<h1 id="数据在各层之间的传递过程"><a href="#数据在各层之间的传递过程" class="headerlink" title="数据在各层之间的传递过程"></a>数据在各层之间的传递过程</h1><p>在向下层传递的过程中，需要添加下层协议所需要的首部或者尾部，而在向上的过程中不断拆开首部和尾部。</p>
 <p>路由器只有下面三层协议，因为路由器位于网络核心中，不需要为进程或者应用程序提供服务，因此也就不需要传输层和应用层。</p>
 <hr>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/u012557765/article/details/81638446" target="_blank" rel="noopener">电路交换，报文交换，分组交换</a></p>
