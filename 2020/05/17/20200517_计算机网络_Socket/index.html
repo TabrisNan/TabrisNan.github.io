@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tabrisnan.github.io","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="网络编程常见四种调用方式：同步&#x2F;异步主要针对client端。 同步(Sync)所谓同步，就是在client端发出一个功能调用后，在没有得到结果之前，该调用就不返回。也就是必须一件一件事做,等前一件做完了才能做下一件事。 例：普通B&#x2F;S模式(同步)：提交请求-&gt;等待服务器处理-&gt;处理完毕返回。这个期间客户端浏览器不能干任何事 异步(Async)异步的概念和同步相对。当client端一个异">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程">
+<meta property="og:url" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/index.html">
+<meta property="og:site_name" content="TabrisChen">
+<meta property="og:description" content="网络编程常见四种调用方式：同步&#x2F;异步主要针对client端。 同步(Sync)所谓同步，就是在client端发出一个功能调用后，在没有得到结果之前，该调用就不返回。也就是必须一件一件事做,等前一件做完了才能做下一件事。 例：普通B&#x2F;S模式(同步)：提交请求-&gt;等待服务器处理-&gt;处理完毕返回。这个期间客户端浏览器不能干任何事 异步(Async)异步的概念和同步相对。当client端一个异">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/IO%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.jpg">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E5%BC%82%E6%AD%A5IO%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E4%BA%94%E4%B8%AAIO%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%AF%94%E8%BE%83.jpg">
+<meta property="article:published_time" content="2020-05-17T04:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-17T13:49:15.044Z">
+<meta property="article:author" content="Tabris Chen">
+<meta property="article:tag" content="同步">
+<meta property="article:tag" content="异步">
+<meta property="article:tag" content="I&#x2F;O 模型">
+<meta property="article:tag" content="I&#x2F;O 复用">
+<meta property="article:tag" content="水平触发">
+<meta property="article:tag" content="边缘触发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/images/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.jpg">
+
+<link rel="canonical" href="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络编程 | TabrisChen</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TabrisChen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">2X岁，是学生です</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">71</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络编程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-17 12:00:00 / 修改时间：21:49:15" itemprop="dateCreated datePublished" datetime="2020-05-17T12:00:00+08:00">2020-05-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">网络编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="网络编程常见四种调用方式："><a href="#网络编程常见四种调用方式：" class="headerlink" title="网络编程常见四种调用方式："></a>网络编程常见四种调用方式：</h1><p><strong>同步/异步主要针对client端。</strong></p>
+<h2 id="同步-Sync"><a href="#同步-Sync" class="headerlink" title="同步(Sync)"></a>同步(Sync)</h2><p>所谓同步，就是在client端发出一个功能调用后，在没有得到结果之前，该调用就不返回。也就是必须一件一件事做,等前一件做完了才能做下一件事。</p>
+<p>例：普通B/S模式(同步)：提交请求-&gt;等待服务器处理-&gt;处理完毕返回。这个期间客户端浏览器不能干任何事</p>
+<h2 id="异步-Async"><a href="#异步-Async" class="headerlink" title="异步(Async)"></a>异步(Async)</h2><p>异步的概念和同步相对。当client端一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者。<br>例：ajax请求(异步): 请求通过事件触发-&gt;服务器处理(这时浏览器仍然可以处理其他事务)-&gt;处理完毕</p>
+<p><strong>阻塞/非阻塞主要针对server端</strong></p>
+<h2 id="阻塞-Block"><a href="#阻塞-Block" class="headerlink" title="阻塞(Block)"></a>阻塞(Block)</h2><p>阻塞调用是指在当前线程的调用结果返回前，该线程会被挂起(线程进入非可执行状态，在这个状态下，CPU不会给线程分配时间片，即线程暂停运行)。函数只有在得到结果之后才返回。</p>
+<h2 id="非阻塞-Unblock"><a href="#非阻塞-Unblock" class="headerlink" title="非阻塞(Unblock"></a>非阻塞(Unblock</h2><p>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>同步IO和异步IO的区别就在于：<strong><font color=red>数据拷贝的时候进程是否阻塞</font></strong></p>
+</li>
+<li><p>阻塞IO和非阻塞IO的区别就在于：<strong><font color=red>应用程序的调用是否立即返回</font></strong></p>
+</li>
+</ul>
+<p>阻塞和非阻塞是指当进程访问的数据如果尚未就绪,进程是否需要等待,简单说这相当于函数内部的实现区别,也就是未就绪时是直接返回还是等待就绪;</p>
+<p>同步和异步是指访问数据的机制；同步一般指主动请求并等待I/O操作完毕的方式,当数据就绪后在读写的时候必须阻塞(区别就绪与读写二个阶段,同步的读写必须阻塞)。异步则指主动请求数据后便可以继续处理其它任务,随后等待I/O操作完毕的通知,这可以使进程在数据读写时也不阻塞。(等待”通知”)</p>
+<h1 id="I-O-模型"><a href="#I-O-模型" class="headerlink" title="I/O 模型"></a>I/O 模型</h1><p>一个输入操作通常包括两个阶段：</p>
+<ul>
+<li>等待数据准备好</li>
+<li>从内核向进程复制数据</li>
+</ul>
+<p>对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待数据到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。</p>
+<p>Unix五种 I/O 模型：<br>同步：</p>
+<blockquote>
+<ul>
+<li>阻塞式 I/O</li>
+<li>非阻塞式 I/O</li>
+<li>I/O 复用（select 和 poll）</li>
+<li>信号驱动式 I/O（SIGIO）</li>
+</ul>
+</blockquote>
+<p>异步：</p>
+<blockquote>
+<ul>
+<li>异步 I/O（AIO）</li>
+</ul>
+</blockquote>
+<h2 id="阻塞式-I-O"><a href="#阻塞式-I-O" class="headerlink" title="阻塞式 I/O"></a>阻塞式 I/O</h2><p>应用进程会一直被阻塞，直到数据从内核缓冲区复制到应用进程缓冲区中才返回。</p>
+<p>应该注意到，在阻塞的过程中，其它应用进程还可以执行，因此阻塞不意味着整个操作系统都被阻塞。因为其它应用进程还可以执行，所以不消耗 CPU 时间，这种模型的 CPU 利用率会比较高。</p>
+<p>recvfrom() 函数用于接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中。这里把 recvfrom() 当成系统调用。</p>
+<p>在调用recv()/recvfrom()函数时，发生在内核中等待数据和复制数据的过程。</p>
+<p><img src="images/阻塞IO模型.jpg" alt="alt"></p>
+<p>当调用recv()函数时，系统首先查是否有准备好的数据。如果数据没有准备好，那么系统就处于等待状态。当数据准备好后，将数据从系统缓冲区复制到用户空间，然后该函数返回。在套接应用程序中，当调用recv()函数时，未必用户空间就已经存在数据，那么此时recv()函数就会处于等待状态。</p>
+<p><strong>优点：</strong> </p>
+<ul>
+<li>使用阻塞模式的套接字，开发网络程序比较简单，容易实现。</li>
+<li>当希望能够立即发送和接收数据，且处理的套接字数量比较少的情况下，使用阻塞模式来开发网络程序比较合适。</li>
+</ul>
+<p><strong>不足：</strong> </p>
+<ul>
+<li>在大量建立好的套接字线程之间进行通信时比较困难。</li>
+<li>当使用“生产者-消费者”模型开发网络程序时，为每个套接字都分别分配一个读线程、一个处理数据线程和一个用于同步的事件，那么这样无疑加大系统的开销。</li>
+<li>最大的缺点是当希望同时处理大量套接字时，将无从下手，其扩展性很差</li>
+</ul>
+<h2 id="非阻塞式I-O"><a href="#非阻塞式I-O" class="headerlink" title="非阻塞式I /O"></a>非阻塞式I /O</h2><p>非阻塞I/O通过进程反复调用I/O函数（多次系统调用，并马上返回）；在数据拷贝的过程中，进程是阻塞的。</p>
+<p>应用进程执行系统调用之后，内核返回一个错误码。应用进程可以继续执行，但是需要不断的执行系统调用来获知 I/O 是否完成，这种方式称为轮询（polling）。</p>
+<p>一个SOCKET接口设置为非阻塞即告诉内核：当所请求的I/O操作无法完成时，不要将进程睡眠，而是返回一个错误。此时I/O操作函数将不断的测试数据是否已经准备好，如果没有准备好，继续测试，直到数据准备好为止。在这个不断测试的过程中，会大量的占用CPU的时间。</p>
+<p>套接字创建时一般默认是阻塞的，因此需要通过调用 ioctlsocket() 或 fcntl() 函数设置为非阻塞。</p>
+<p><img src="images/非阻塞IO模型.jpg" alt="alt"></p>
+<p>图中进程多次调用revc() 函数，在数据报未准备完毕时立即返回。</p>
+<p>由于 CPU 要处理更多的系统调用，因此这种模型的 CPU 利用率比较低。</p>
+<h2 id="I-O-复用"><a href="#I-O-复用" class="headerlink" title="I/O 复用"></a>I/O 复用</h2><p>使用 select 或者 poll 等待数据，并且可以等待多个套接字中的任何一个变为可读。这一过程会被阻塞，当某一个套接字可读时返回，之后再使用 recvfrom 把数据从内核复制到进程中。</p>
+<p>这两个函数可以同时阻塞多个I/O操作。而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时，才真正调用I/O操作函数。</p>
+<p>它可以让单个进程具有处理多个 I/O 事件的能力。又被称为 Event Driven I/O，即事件驱动 I/O。</p>
+<p>如果一个 Web 服务器没有 I/O 复用，那么每一个 Socket 连接都需要创建一个线程去处理。如果同时有几万个连接，那么就需要创建相同数量的线程。相比于多进程和多线程技术，I/O 复用不需要进程线程创建和切换的开销，系统开销更小。</p>
+<p><img src="images/IO复用模型.jpg" alt="alt"></p>
+<h2 id="信号驱动-I-O"><a href="#信号驱动-I-O" class="headerlink" title="信号驱动 I/O"></a>信号驱动 I/O</h2><p>应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，也就是说等待数据阶段应用进程是非阻塞的。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。</p>
+<p>相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高。</p>
+<p><img src="images/信号驱动IO.jpg" alt="alt"></p>
+<h2 id="异步I-O"><a href="#异步I-O" class="headerlink" title="异步I/O"></a>异步I/O</h2><p><strong>数据拷贝的时候进程无需阻塞。</strong></p>
+<p>应用进程执行 aio_read 系统调用会立即返回，应用进程可以继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。</p>
+<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。</p>
+<p>当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者的输入输出操作</p>
+<p><img src="images/异步IO模型.jpg" alt="alt"></p>
+<p><strong>同步IO引起进程阻塞，直至IO操作完成。异步IO不会引起进程阻塞。IO复用是先通过select调用阻塞。</strong></p>
+<h1 id="I-O-模型比较"><a href="#I-O-模型比较" class="headerlink" title="I/O 模型比较"></a>I/O 模型比较</h1><p><img src="images/五个IO模型的比较.jpg" alt="alt"></p>
+<ul>
+<li>同步 I/O：将数据从内核缓冲区复制到应用进程缓冲区的阶段（第二阶段），应用进程会阻塞。</li>
+<li>异步 I/O：第二阶段应用进程不会阻塞。</li>
+</ul>
+<p>同步 I/O 包括阻塞式 I/O、非阻塞式 I/O、I/O 复用和信号驱动 I/O ，它们的主要区别在第一个阶段。</p>
+<p>非阻塞式 I/O 、信号驱动 I/O 和异步 I/O 在第一阶段不会阻塞。</p>
+<h1 id="I-O-复用-1"><a href="#I-O-复用-1" class="headerlink" title="I/O 复用"></a>I/O 复用</h1><p>select/poll/epoll 都是 I/O 多路复用的具体实现，select 出现的最早，之后是 poll，再是 epoll。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>select 允许应用程序监视一组文件描述符，等待一个或者多个描述符成为就绪状态，从而完成 I/O 操作。本质上是通过设置或者检查存放 fd 标志位的数据结构来进行下一步处理。</p>
+<ul>
+<li><p>fd_set 使用数组实现，数组大小使用 FD_SETSIZE 定义，所以只能监听少于 FD_SETSIZE 数量的描述符。有三种类型的描述符类型：readset、writeset、exceptset，分别对应读、写、异常条件的描述符集合。</p>
+</li>
+<li><p>timeout 为超时参数，调用 select 会一直阻塞直到有描述符的事件到达或者等待的时间超过 timeout。</p>
+</li>
+<li><p>成功调用返回结果大于 0，出错返回结果为 -1，超时返回结果为 0。</p>
+</li>
+</ul>
+<p>由于是通过检查 fd 标志位，可能带来以下缺点：</p>
+<ul>
+<li><p>单个进程可监视的fd数量被限制，即能监听端口的大小有限。与系统内存有关，32位机默认是1024个，64位机默认是2048。</p>
+</li>
+<li><p>对socket进行扫描时是线性扫描，即采用轮询的方法，效率较低。当套接字比较多的时候，每次select()不管哪个Socket是活跃的,都遍历一遍，浪费CPU时间。</p>
+</li>
+<li><p>需要维护一个用来存放大量 fd 的数据结构，使得用户空间和内核空间在传递该结构时复制开销变大。</p>
+</li>
+</ul>
+<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span><span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>poll 中的描述符是 pollfd 类型的数组，pollfd 的定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd;         <span class="comment">/* file descriptor */</span></span><br><span class="line">    short events;     <span class="comment">/* requested events */</span></span><br><span class="line">    short revents;    <span class="comment">/* returned events */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>poll 的功能与 select 类似，也是等待一组描述符中的一个成为就绪状态。</p>
+<p>poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态，如果设备就绪则在设备等待队列中加入一项并继续遍历，如果遍历完所有fd后没有发现就绪设备，则挂起当前进程，直到设备就绪或者主动超时，被唤醒后它又要再次遍历fd。这个过程经历了多次无谓的遍历。</p>
+<p>由于采用链表存储，因此没有最大连接数的限制，但有以下缺点：</p>
+<ul>
+<li>大量的fd的数组被整体复制于用户态和内核地址空间之间，而不管这样的复制是不是有意义。</li>
+<li>poll还有一个特点是“水平触发”，如果报告了fd后，没有被处理，那么下次poll时会再次报告该fd。</li>
+</ul>
+<h2 id="select-与-poll-比较"><a href="#select-与-poll-比较" class="headerlink" title="select 与 poll 比较"></a>select 与 poll 比较</h2><h3 id="1-功能"><a href="#1-功能" class="headerlink" title="1. 功能"></a>1. 功能</h3><ul>
+<li>select 会修改描述符，而 poll 不会；</li>
+<li>select 的描述符类型使用数组实现，FD_SETSIZE 大小默认为 1024，因此默认只能监听少于 1024 个描述符。如果要监听更多描述符的话，需要修改 FD_SETSIZE 之后重新编译；而 poll 没有描述符数量的限制；</li>
+<li>poll 提供了更多的事件类型，并且对描述符的重复利用上比 select 高。</li>
+<li>如果一个线程对某个描述符调用了 select 或者 poll，另一个线程关闭了该描述符，会导致调用结果不确定。</li>
+</ul>
+<h3 id="2-速度"><a href="#2-速度" class="headerlink" title="2. 速度"></a>2. 速度</h3><p>select 和 poll 速度都比较慢，每次调用都需要将全部描述符从应用进程缓冲区复制到内核缓冲区。</p>
+<h3 id="3-可移植性"><a href="#3-可移植性" class="headerlink" title="3. 可移植性"></a>3. 可移植性</h3><p>几乎所有的系统都支持 select，但是只有比较新的系统支持 poll。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>epoll_ctl() 用于向内核注册新的描述符或者是改变某个文件描述符的状态。已注册的描述符在内核中会被维护在一棵红黑树上，通过回调函数内核会将 I/O 准备好的描述符加入到一个链表中管理，进程调用 epoll_wait() 便可以得到事件完成的描述符。</p>
+<p>从上面的描述可以看出，epoll 只需要将描述符从进程缓冲区向内核缓冲区拷贝一次，并且进程不需要通过轮询来获得事件完成的描述符。</p>
+<p>epoll 仅适用于 Linux OS。</p>
+<p>epoll 比 select 和 poll 更加灵活而且没有描述符数量限制。</p>
+<p>epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一个线程关闭了同一个描述符也不会产生像 select 和 poll 的不确定情况。</p>
+<h2 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h2><p>epoll 的描述符事件有两种触发模式：<strong>LT（水平触发，level trigger）</strong>和 <strong>ET（边缘触发，edge trigger）</strong>。</p>
+<h3 id="1-LT-模式（默认工作模式）"><a href="#1-LT-模式（默认工作模式）" class="headerlink" title="1. LT 模式（默认工作模式）"></a>1. LT 模式（默认工作模式）</h3><p>当 epoll_wait() 检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait() 会再次通知进程。是默认的一种模式，并且同时支持 Blocking 和 No-Blocking。</p>
+<p>即只要 fd 处于可读或可写状态，就会通知用户。</p>
+<h3 id="2-ET-模式（高速工作模式）"><a href="#2-ET-模式（高速工作模式）" class="headerlink" title="2. ET 模式（高速工作模式）"></a>2. ET 模式（高速工作模式）</h3><p>和 LT 模式不同的是，通知之后进程必须立即处理事件，下次再调用 epoll_wait() 时不会再得到事件到达的通知。</p>
+<p>很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。只支持 No-Blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
+<p>即 ET 只有不可读变为可读，或不可写变为可写之时，才会通知用户。因此 ET 对系统的调用比 LT 要少得多，所以 ET 是高速工作模式，效率高很多。</p>
+<h2 id="I-O-复用三种具体实现：select、poll-和-epoll-的区别总结："><a href="#I-O-复用三种具体实现：select、poll-和-epoll-的区别总结：" class="headerlink" title="I/O 复用三种具体实现：select、poll 和 epoll 的区别总结："></a>I/O 复用三种具体实现：select、poll 和 epoll 的区别总结：</h2><h3 id="1-支持一个进程所能打开的最大连接数"><a href="#1-支持一个进程所能打开的最大连接数" class="headerlink" title="1. 支持一个进程所能打开的最大连接数"></a>1. 支持一个进程所能打开的最大连接数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">单个进程所能打开的最大连接数由FD_SETSIZE宏定义，其大小是32个整数的大小（在32位的机器上，大小就是 32 <em> 32，同理 64 位机器上FD_SETSIZE为 32 </em> 64 ）；可以对进行修改，然后重新编译内核，但是性能可能会受到影响。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">没有最大连接数的限制，原因是它是基于链表来存储的。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">连接数有上限，但是很大，1G内存的机器上可以打开10万左右的连接，2G内存的机器可以打开20万左右的连接。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-FD-描述符-剧增后带来的I-O效率问题"><a href="#2-FD-描述符-剧增后带来的I-O效率问题" class="headerlink" title="2. FD(描述符)剧增后带来的I/O效率问题"></a>2. FD(描述符)剧增后带来的I/O效率问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">每次调用时都会对连接进行线性遍历，所以随着FD的增加会造成遍历速度慢的“线性下降性能问题”。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">存在与 select 相同的问题。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">因为 epoll 内核中是根据每个 fd 上的 callback() 函数实现的，只有活跃的 socket 才会主动调用 callback，所以在活跃 socket 较少的情况下，使用 epoll 没有线性下降的性能问题；但是所有socket都很活跃的情况下，可能会有性能问题。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-消息传递方式"><a href="#3-消息传递方式" class="headerlink" title="3. 消息传递方式"></a>3. 消息传递方式</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">内核需要将消息传递到用户空间，都需要内核拷贝动作。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">存在与 select 相同的问题。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">epoll通过内核和用户空间共享一块内存实现的。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="1-select-应用场景"><a href="#1-select-应用场景" class="headerlink" title="1. select 应用场景"></a>1. select 应用场景</h3><p>select 的 timeout 参数精度为微秒，而 poll 和 epoll 为毫秒，因此 select 更加适用于实时性要求比较高的场景，比如核反应堆的控制。</p>
+<p>select 可移植性更好，几乎被所有主流平台所支持。</p>
+<h3 id="2-poll-应用场景"><a href="#2-poll-应用场景" class="headerlink" title="2. poll 应用场景"></a>2. poll 应用场景</h3><p>poll 没有最大描述符数量的限制，如果平台支持并且对实时性要求不高，应该使用 poll 而不是 select。</p>
+<h3 id="3-epoll-应用场景"><a href="#3-epoll-应用场景" class="headerlink" title="3. epoll 应用场景"></a>3. epoll 应用场景</h3><p>只需要运行在 Linux 平台上，有大量的描述符需要同时轮询，并且这些连接最好是长连接。</p>
+<p>需要同时监控小于 1000 个描述符，就没有必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势。</p>
+<p>需要监控的描述符状态变化多，而且都是非常短暂的，也没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，造成每次需要对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率。并且 epoll 的描述符存储在内核，不容易调试。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/hguisu/article/details/7453390" target="_blank" rel="noopener">socket阻塞与非阻塞，同步与异步、I/O模型</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>TabrisChen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/" title="网络编程">http://tabrisnan.github.io/2020/05/17/20200517_计算机网络_Socket/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag"><i class="fa fa-tag"></i> 同步</a>
+              <a href="/tags/%E5%BC%82%E6%AD%A5/" rel="tag"><i class="fa fa-tag"></i> 异步</a>
+              <a href="/tags/I-O-%E6%A8%A1%E5%9E%8B/" rel="tag"><i class="fa fa-tag"></i> I/O 模型</a>
+              <a href="/tags/I-O-%E5%A4%8D%E7%94%A8/" rel="tag"><i class="fa fa-tag"></i> I/O 复用</a>
+              <a href="/tags/%E6%B0%B4%E5%B9%B3%E8%A7%A6%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 水平触发</a>
+              <a href="/tags/%E8%BE%B9%E7%BC%98%E8%A7%A6%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 边缘触发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/08/20200508_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E5%BA%94%E7%94%A8%E5%B1%82/" rel="prev" title="应用层">
+      <i class="fa fa-chevron-left"></i> 应用层
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络编程常见四种调用方式："><span class="nav-number">1.</span> <span class="nav-text">网络编程常见四种调用方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步-Sync"><span class="nav-number">1.1.</span> <span class="nav-text">同步(Sync)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-Async"><span class="nav-number">1.2.</span> <span class="nav-text">异步(Async)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞-Block"><span class="nav-number">1.3.</span> <span class="nav-text">阻塞(Block)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞-Unblock"><span class="nav-number">1.4.</span> <span class="nav-text">非阻塞(Unblock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O-模型"><span class="nav-number">2.</span> <span class="nav-text">I&#x2F;O 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞式-I-O"><span class="nav-number">2.1.</span> <span class="nav-text">阻塞式 I&#x2F;O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞式I-O"><span class="nav-number">2.2.</span> <span class="nav-text">非阻塞式I &#x2F;O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O-复用"><span class="nav-number">2.3.</span> <span class="nav-text">I&#x2F;O 复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号驱动-I-O"><span class="nav-number">2.4.</span> <span class="nav-text">信号驱动 I&#x2F;O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步I-O"><span class="nav-number">2.5.</span> <span class="nav-text">异步I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O-模型比较"><span class="nav-number">3.</span> <span class="nav-text">I&#x2F;O 模型比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-O-复用-1"><span class="nav-number">4.</span> <span class="nav-text">I&#x2F;O 复用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#select"><span class="nav-number">4.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#poll"><span class="nav-number">4.2.</span> <span class="nav-text">poll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-与-poll-比较"><span class="nav-number">4.3.</span> <span class="nav-text">select 与 poll 比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-功能"><span class="nav-number">4.3.1.</span> <span class="nav-text">1. 功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-速度"><span class="nav-number">4.3.2.</span> <span class="nav-text">2. 速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-可移植性"><span class="nav-number">4.3.3.</span> <span class="nav-text">3. 可移植性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-number">4.4.</span> <span class="nav-text">epoll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作模式"><span class="nav-number">4.5.</span> <span class="nav-text">工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-LT-模式（默认工作模式）"><span class="nav-number">4.5.1.</span> <span class="nav-text">1. LT 模式（默认工作模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ET-模式（高速工作模式）"><span class="nav-number">4.5.2.</span> <span class="nav-text">2. ET 模式（高速工作模式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O-复用三种具体实现：select、poll-和-epoll-的区别总结："><span class="nav-number">4.6.</span> <span class="nav-text">I&#x2F;O 复用三种具体实现：select、poll 和 epoll 的区别总结：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-支持一个进程所能打开的最大连接数"><span class="nav-number">4.6.1.</span> <span class="nav-text">1. 支持一个进程所能打开的最大连接数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-FD-描述符-剧增后带来的I-O效率问题"><span class="nav-number">4.6.2.</span> <span class="nav-text">2. FD(描述符)剧增后带来的I&#x2F;O效率问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-消息传递方式"><span class="nav-number">4.6.3.</span> <span class="nav-text">3. 消息传递方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">4.7.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-select-应用场景"><span class="nav-number">4.7.1.</span> <span class="nav-text">1. select 应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-poll-应用场景"><span class="nav-number">4.7.2.</span> <span class="nav-text">2. poll 应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-epoll-应用场景"><span class="nav-number">4.7.3.</span> <span class="nav-text">3. epoll 应用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tabris Chen"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Tabris Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/TabrisNan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;TabrisNan" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tabrischen@foxmail.com" title="E-Mail → mailto:tabrischen@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/dist/music.js"></script>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tabris Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">31k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">29 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+    </div>
+</body>
+</html>

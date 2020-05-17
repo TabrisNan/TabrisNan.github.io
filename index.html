@@ -126,17 +126,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">71</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">4</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">15</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,908 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/17/20200517_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_Socket/" class="post-title-link" itemprop="url">网络编程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-17 12:00:00 / 修改时间：21:49:15" itemprop="dateCreated datePublished" datetime="2020-05-17T12:00:00+08:00">2020-05-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">网络编程</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网络编程常见四种调用方式："><a href="#网络编程常见四种调用方式：" class="headerlink" title="网络编程常见四种调用方式："></a>网络编程常见四种调用方式：</h1><p><strong>同步/异步主要针对client端。</strong></p>
+<h2 id="同步-Sync"><a href="#同步-Sync" class="headerlink" title="同步(Sync)"></a>同步(Sync)</h2><p>所谓同步，就是在client端发出一个功能调用后，在没有得到结果之前，该调用就不返回。也就是必须一件一件事做,等前一件做完了才能做下一件事。</p>
+<p>例：普通B/S模式(同步)：提交请求-&gt;等待服务器处理-&gt;处理完毕返回。这个期间客户端浏览器不能干任何事</p>
+<h2 id="异步-Async"><a href="#异步-Async" class="headerlink" title="异步(Async)"></a>异步(Async)</h2><p>异步的概念和同步相对。当client端一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者。<br>例：ajax请求(异步): 请求通过事件触发-&gt;服务器处理(这时浏览器仍然可以处理其他事务)-&gt;处理完毕</p>
+<p><strong>阻塞/非阻塞主要针对server端</strong></p>
+<h2 id="阻塞-Block"><a href="#阻塞-Block" class="headerlink" title="阻塞(Block)"></a>阻塞(Block)</h2><p>阻塞调用是指在当前线程的调用结果返回前，该线程会被挂起(线程进入非可执行状态，在这个状态下，CPU不会给线程分配时间片，即线程暂停运行)。函数只有在得到结果之后才返回。</p>
+<h2 id="非阻塞-Unblock"><a href="#非阻塞-Unblock" class="headerlink" title="非阻塞(Unblock"></a>非阻塞(Unblock</h2><p>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>同步IO和异步IO的区别就在于：<strong><font color=red>数据拷贝的时候进程是否阻塞</font></strong></p>
+</li>
+<li><p>阻塞IO和非阻塞IO的区别就在于：<strong><font color=red>应用程序的调用是否立即返回</font></strong></p>
+</li>
+</ul>
+<p>阻塞和非阻塞是指当进程访问的数据如果尚未就绪,进程是否需要等待,简单说这相当于函数内部的实现区别,也就是未就绪时是直接返回还是等待就绪;</p>
+<p>同步和异步是指访问数据的机制；同步一般指主动请求并等待I/O操作完毕的方式,当数据就绪后在读写的时候必须阻塞(区别就绪与读写二个阶段,同步的读写必须阻塞)。异步则指主动请求数据后便可以继续处理其它任务,随后等待I/O操作完毕的通知,这可以使进程在数据读写时也不阻塞。(等待”通知”)</p>
+<h1 id="I-O-模型"><a href="#I-O-模型" class="headerlink" title="I/O 模型"></a>I/O 模型</h1><p>一个输入操作通常包括两个阶段：</p>
+<ul>
+<li>等待数据准备好</li>
+<li>从内核向进程复制数据</li>
+</ul>
+<p>对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待数据到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。</p>
+<p>Unix五种 I/O 模型：<br>同步：</p>
+<blockquote>
+<ul>
+<li>阻塞式 I/O</li>
+<li>非阻塞式 I/O</li>
+<li>I/O 复用（select 和 poll）</li>
+<li>信号驱动式 I/O（SIGIO）</li>
+</ul>
+</blockquote>
+<p>异步：</p>
+<blockquote>
+<ul>
+<li>异步 I/O（AIO）</li>
+</ul>
+</blockquote>
+<h2 id="阻塞式-I-O"><a href="#阻塞式-I-O" class="headerlink" title="阻塞式 I/O"></a>阻塞式 I/O</h2><p>应用进程会一直被阻塞，直到数据从内核缓冲区复制到应用进程缓冲区中才返回。</p>
+<p>应该注意到，在阻塞的过程中，其它应用进程还可以执行，因此阻塞不意味着整个操作系统都被阻塞。因为其它应用进程还可以执行，所以不消耗 CPU 时间，这种模型的 CPU 利用率会比较高。</p>
+<p>recvfrom() 函数用于接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中。这里把 recvfrom() 当成系统调用。</p>
+<p>在调用recv()/recvfrom()函数时，发生在内核中等待数据和复制数据的过程。</p>
+<p><img src="images/阻塞IO模型.jpg" alt="alt"></p>
+<p>当调用recv()函数时，系统首先查是否有准备好的数据。如果数据没有准备好，那么系统就处于等待状态。当数据准备好后，将数据从系统缓冲区复制到用户空间，然后该函数返回。在套接应用程序中，当调用recv()函数时，未必用户空间就已经存在数据，那么此时recv()函数就会处于等待状态。</p>
+<p><strong>优点：</strong> </p>
+<ul>
+<li>使用阻塞模式的套接字，开发网络程序比较简单，容易实现。</li>
+<li>当希望能够立即发送和接收数据，且处理的套接字数量比较少的情况下，使用阻塞模式来开发网络程序比较合适。</li>
+</ul>
+<p><strong>不足：</strong> </p>
+<ul>
+<li>在大量建立好的套接字线程之间进行通信时比较困难。</li>
+<li>当使用“生产者-消费者”模型开发网络程序时，为每个套接字都分别分配一个读线程、一个处理数据线程和一个用于同步的事件，那么这样无疑加大系统的开销。</li>
+<li>最大的缺点是当希望同时处理大量套接字时，将无从下手，其扩展性很差</li>
+</ul>
+<h2 id="非阻塞式I-O"><a href="#非阻塞式I-O" class="headerlink" title="非阻塞式I /O"></a>非阻塞式I /O</h2><p>非阻塞I/O通过进程反复调用I/O函数（多次系统调用，并马上返回）；在数据拷贝的过程中，进程是阻塞的。</p>
+<p>应用进程执行系统调用之后，内核返回一个错误码。应用进程可以继续执行，但是需要不断的执行系统调用来获知 I/O 是否完成，这种方式称为轮询（polling）。</p>
+<p>一个SOCKET接口设置为非阻塞即告诉内核：当所请求的I/O操作无法完成时，不要将进程睡眠，而是返回一个错误。此时I/O操作函数将不断的测试数据是否已经准备好，如果没有准备好，继续测试，直到数据准备好为止。在这个不断测试的过程中，会大量的占用CPU的时间。</p>
+<p>套接字创建时一般默认是阻塞的，因此需要通过调用 ioctlsocket() 或 fcntl() 函数设置为非阻塞。</p>
+<p><img src="images/非阻塞IO模型.jpg" alt="alt"></p>
+<p>图中进程多次调用revc() 函数，在数据报未准备完毕时立即返回。</p>
+<p>由于 CPU 要处理更多的系统调用，因此这种模型的 CPU 利用率比较低。</p>
+<h2 id="I-O-复用"><a href="#I-O-复用" class="headerlink" title="I/O 复用"></a>I/O 复用</h2><p>使用 select 或者 poll 等待数据，并且可以等待多个套接字中的任何一个变为可读。这一过程会被阻塞，当某一个套接字可读时返回，之后再使用 recvfrom 把数据从内核复制到进程中。</p>
+<p>这两个函数可以同时阻塞多个I/O操作。而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时，才真正调用I/O操作函数。</p>
+<p>它可以让单个进程具有处理多个 I/O 事件的能力。又被称为 Event Driven I/O，即事件驱动 I/O。</p>
+<p>如果一个 Web 服务器没有 I/O 复用，那么每一个 Socket 连接都需要创建一个线程去处理。如果同时有几万个连接，那么就需要创建相同数量的线程。相比于多进程和多线程技术，I/O 复用不需要进程线程创建和切换的开销，系统开销更小。</p>
+<p><img src="images/IO复用模型.jpg" alt="alt"></p>
+<h2 id="信号驱动-I-O"><a href="#信号驱动-I-O" class="headerlink" title="信号驱动 I/O"></a>信号驱动 I/O</h2><p>应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，也就是说等待数据阶段应用进程是非阻塞的。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。</p>
+<p>相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高。</p>
+<p><img src="images/信号驱动IO.jpg" alt="alt"></p>
+<h2 id="异步I-O"><a href="#异步I-O" class="headerlink" title="异步I/O"></a>异步I/O</h2><p><strong>数据拷贝的时候进程无需阻塞。</strong></p>
+<p>应用进程执行 aio_read 系统调用会立即返回，应用进程可以继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。</p>
+<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。</p>
+<p>当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者的输入输出操作</p>
+<p><img src="images/异步IO模型.jpg" alt="alt"></p>
+<p><strong>同步IO引起进程阻塞，直至IO操作完成。异步IO不会引起进程阻塞。IO复用是先通过select调用阻塞。</strong></p>
+<h1 id="I-O-模型比较"><a href="#I-O-模型比较" class="headerlink" title="I/O 模型比较"></a>I/O 模型比较</h1><p><img src="images/五个IO模型的比较.jpg" alt="alt"></p>
+<ul>
+<li>同步 I/O：将数据从内核缓冲区复制到应用进程缓冲区的阶段（第二阶段），应用进程会阻塞。</li>
+<li>异步 I/O：第二阶段应用进程不会阻塞。</li>
+</ul>
+<p>同步 I/O 包括阻塞式 I/O、非阻塞式 I/O、I/O 复用和信号驱动 I/O ，它们的主要区别在第一个阶段。</p>
+<p>非阻塞式 I/O 、信号驱动 I/O 和异步 I/O 在第一阶段不会阻塞。</p>
+<h1 id="I-O-复用-1"><a href="#I-O-复用-1" class="headerlink" title="I/O 复用"></a>I/O 复用</h1><p>select/poll/epoll 都是 I/O 多路复用的具体实现，select 出现的最早，之后是 poll，再是 epoll。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>select 允许应用程序监视一组文件描述符，等待一个或者多个描述符成为就绪状态，从而完成 I/O 操作。本质上是通过设置或者检查存放 fd 标志位的数据结构来进行下一步处理。</p>
+<ul>
+<li><p>fd_set 使用数组实现，数组大小使用 FD_SETSIZE 定义，所以只能监听少于 FD_SETSIZE 数量的描述符。有三种类型的描述符类型：readset、writeset、exceptset，分别对应读、写、异常条件的描述符集合。</p>
+</li>
+<li><p>timeout 为超时参数，调用 select 会一直阻塞直到有描述符的事件到达或者等待的时间超过 timeout。</p>
+</li>
+<li><p>成功调用返回结果大于 0，出错返回结果为 -1，超时返回结果为 0。</p>
+</li>
+</ul>
+<p>由于是通过检查 fd 标志位，可能带来以下缺点：</p>
+<ul>
+<li><p>单个进程可监视的fd数量被限制，即能监听端口的大小有限。与系统内存有关，32位机默认是1024个，64位机默认是2048。</p>
+</li>
+<li><p>对socket进行扫描时是线性扫描，即采用轮询的方法，效率较低。当套接字比较多的时候，每次select()不管哪个Socket是活跃的,都遍历一遍，浪费CPU时间。</p>
+</li>
+<li><p>需要维护一个用来存放大量 fd 的数据结构，使得用户空间和内核空间在传递该结构时复制开销变大。</p>
+</li>
+</ul>
+<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span><span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>poll 中的描述符是 pollfd 类型的数组，pollfd 的定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd;         <span class="comment">/* file descriptor */</span></span><br><span class="line">    short events;     <span class="comment">/* requested events */</span></span><br><span class="line">    short revents;    <span class="comment">/* returned events */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>poll 的功能与 select 类似，也是等待一组描述符中的一个成为就绪状态。</p>
+<p>poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态，如果设备就绪则在设备等待队列中加入一项并继续遍历，如果遍历完所有fd后没有发现就绪设备，则挂起当前进程，直到设备就绪或者主动超时，被唤醒后它又要再次遍历fd。这个过程经历了多次无谓的遍历。</p>
+<p>由于采用链表存储，因此没有最大连接数的限制，但有以下缺点：</p>
+<ul>
+<li>大量的fd的数组被整体复制于用户态和内核地址空间之间，而不管这样的复制是不是有意义。</li>
+<li>poll还有一个特点是“水平触发”，如果报告了fd后，没有被处理，那么下次poll时会再次报告该fd。</li>
+</ul>
+<h2 id="select-与-poll-比较"><a href="#select-与-poll-比较" class="headerlink" title="select 与 poll 比较"></a>select 与 poll 比较</h2><h3 id="1-功能"><a href="#1-功能" class="headerlink" title="1. 功能"></a>1. 功能</h3><ul>
+<li>select 会修改描述符，而 poll 不会；</li>
+<li>select 的描述符类型使用数组实现，FD_SETSIZE 大小默认为 1024，因此默认只能监听少于 1024 个描述符。如果要监听更多描述符的话，需要修改 FD_SETSIZE 之后重新编译；而 poll 没有描述符数量的限制；</li>
+<li>poll 提供了更多的事件类型，并且对描述符的重复利用上比 select 高。</li>
+<li>如果一个线程对某个描述符调用了 select 或者 poll，另一个线程关闭了该描述符，会导致调用结果不确定。</li>
+</ul>
+<h3 id="2-速度"><a href="#2-速度" class="headerlink" title="2. 速度"></a>2. 速度</h3><p>select 和 poll 速度都比较慢，每次调用都需要将全部描述符从应用进程缓冲区复制到内核缓冲区。</p>
+<h3 id="3-可移植性"><a href="#3-可移植性" class="headerlink" title="3. 可移植性"></a>3. 可移植性</h3><p>几乎所有的系统都支持 select，但是只有比较新的系统支持 poll。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>epoll_ctl() 用于向内核注册新的描述符或者是改变某个文件描述符的状态。已注册的描述符在内核中会被维护在一棵红黑树上，通过回调函数内核会将 I/O 准备好的描述符加入到一个链表中管理，进程调用 epoll_wait() 便可以得到事件完成的描述符。</p>
+<p>从上面的描述可以看出，epoll 只需要将描述符从进程缓冲区向内核缓冲区拷贝一次，并且进程不需要通过轮询来获得事件完成的描述符。</p>
+<p>epoll 仅适用于 Linux OS。</p>
+<p>epoll 比 select 和 poll 更加灵活而且没有描述符数量限制。</p>
+<p>epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一个线程关闭了同一个描述符也不会产生像 select 和 poll 的不确定情况。</p>
+<h2 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h2><p>epoll 的描述符事件有两种触发模式：<strong>LT（水平触发，level trigger）</strong>和 <strong>ET（边缘触发，edge trigger）</strong>。</p>
+<h3 id="1-LT-模式（默认工作模式）"><a href="#1-LT-模式（默认工作模式）" class="headerlink" title="1. LT 模式（默认工作模式）"></a>1. LT 模式（默认工作模式）</h3><p>当 epoll_wait() 检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait() 会再次通知进程。是默认的一种模式，并且同时支持 Blocking 和 No-Blocking。</p>
+<p>即只要 fd 处于可读或可写状态，就会通知用户。</p>
+<h3 id="2-ET-模式（高速工作模式）"><a href="#2-ET-模式（高速工作模式）" class="headerlink" title="2. ET 模式（高速工作模式）"></a>2. ET 模式（高速工作模式）</h3><p>和 LT 模式不同的是，通知之后进程必须立即处理事件，下次再调用 epoll_wait() 时不会再得到事件到达的通知。</p>
+<p>很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。只支持 No-Blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
+<p>即 ET 只有不可读变为可读，或不可写变为可写之时，才会通知用户。因此 ET 对系统的调用比 LT 要少得多，所以 ET 是高速工作模式，效率高很多。</p>
+<h2 id="I-O-复用三种具体实现：select、poll-和-epoll-的区别总结："><a href="#I-O-复用三种具体实现：select、poll-和-epoll-的区别总结：" class="headerlink" title="I/O 复用三种具体实现：select、poll 和 epoll 的区别总结："></a>I/O 复用三种具体实现：select、poll 和 epoll 的区别总结：</h2><h3 id="1-支持一个进程所能打开的最大连接数"><a href="#1-支持一个进程所能打开的最大连接数" class="headerlink" title="1. 支持一个进程所能打开的最大连接数"></a>1. 支持一个进程所能打开的最大连接数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">单个进程所能打开的最大连接数由FD_SETSIZE宏定义，其大小是32个整数的大小（在32位的机器上，大小就是 32 <em> 32，同理 64 位机器上FD_SETSIZE为 32 </em> 64 ）；可以对进行修改，然后重新编译内核，但是性能可能会受到影响。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">没有最大连接数的限制，原因是它是基于链表来存储的。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">连接数有上限，但是很大，1G内存的机器上可以打开10万左右的连接，2G内存的机器可以打开20万左右的连接。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-FD-描述符-剧增后带来的I-O效率问题"><a href="#2-FD-描述符-剧增后带来的I-O效率问题" class="headerlink" title="2. FD(描述符)剧增后带来的I/O效率问题"></a>2. FD(描述符)剧增后带来的I/O效率问题</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">每次调用时都会对连接进行线性遍历，所以随着FD的增加会造成遍历速度慢的“线性下降性能问题”。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">存在与 select 相同的问题。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">因为 epoll 内核中是根据每个 fd 上的 callback() 函数实现的，只有活跃的 socket 才会主动调用 callback，所以在活跃 socket 较少的情况下，使用 epoll 没有线性下降的性能问题；但是所有socket都很活跃的情况下，可能会有性能问题。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-消息传递方式"><a href="#3-消息传递方式" class="headerlink" title="3. 消息传递方式"></a>3. 消息传递方式</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">select</td>
+<td style="text-align:left">内核需要将消息传递到用户空间，都需要内核拷贝动作。</td>
+</tr>
+<tr>
+<td style="text-align:center">poll</td>
+<td style="text-align:left">存在与 select 相同的问题。</td>
+</tr>
+<tr>
+<td style="text-align:center">epoll</td>
+<td style="text-align:left">epoll通过内核和用户空间共享一块内存实现的。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="1-select-应用场景"><a href="#1-select-应用场景" class="headerlink" title="1. select 应用场景"></a>1. select 应用场景</h3><p>select 的 timeout 参数精度为微秒，而 poll 和 epoll 为毫秒，因此 select 更加适用于实时性要求比较高的场景，比如核反应堆的控制。</p>
+<p>select 可移植性更好，几乎被所有主流平台所支持。</p>
+<h3 id="2-poll-应用场景"><a href="#2-poll-应用场景" class="headerlink" title="2. poll 应用场景"></a>2. poll 应用场景</h3><p>poll 没有最大描述符数量的限制，如果平台支持并且对实时性要求不高，应该使用 poll 而不是 select。</p>
+<h3 id="3-epoll-应用场景"><a href="#3-epoll-应用场景" class="headerlink" title="3. epoll 应用场景"></a>3. epoll 应用场景</h3><p>只需要运行在 Linux 平台上，有大量的描述符需要同时轮询，并且这些连接最好是长连接。</p>
+<p>需要同时监控小于 1000 个描述符，就没有必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势。</p>
+<p>需要监控的描述符状态变化多，而且都是非常短暂的，也没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，造成每次需要对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率。并且 epoll 的描述符存储在内核，不容易调试。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/hguisu/article/details/7453390" target="_blank" rel="noopener">socket阻塞与非阻塞，同步与异步、I/O模型</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/08/20200508_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E5%BA%94%E7%94%A8%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/08/20200508_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E5%BA%94%E7%94%A8%E5%B1%82/" class="post-title-link" itemprop="url">应用层</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 12:00:00" itemprop="dateCreated datePublished" datetime="2020-05-08T12:00:00+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-10 01:13:24" itemprop="dateModified" datetime="2020-05-10T01:13:24+08:00">2020-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="DNS-域名系统"><a href="#DNS-域名系统" class="headerlink" title="DNS 域名系统"></a>DNS 域名系统</h1><p>DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
+<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
+<p>DNS 可以使用 UDP 或者 TCP 进行传输，使用的端口号都为 53。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
+<p>在两种情况下会使用 TCP 进行传输：</p>
+<blockquote>
+<ul>
+<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据）。</li>
+<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据）。</li>
+</ul>
+</blockquote>
+<h1 id="FTP-文件传送协议"><a href="#FTP-文件传送协议" class="headerlink" title="FTP 文件传送协议"></a>FTP 文件传送协议</h1><p>FTP 使用 TCP 进行连接，它需要两个连接来传送一个文件：</p>
+<ul>
+<li>控制连接：服务器打开端口号 21 等待客户端的连接，客户端主动建立连接后，使用这个连接将客户端的命令传送给服务器，并传回服务器的应答。</li>
+<li>数据连接：用来传送一个文件数据。</li>
+</ul>
+<p>根据数据连接是否是由服务器端主动建立，FTP 有主动和被动两种模式：</p>
+<ul>
+<li>主动模式：服务器端主动建立数据连接，其中服务器端的端口号为 20，客户端的端口号随机，但是必须大于 1024，因为 0~1023 是熟知端口号。</li>
+</ul>
+<p><img src="images/FTP主动模式.jpg" alt="alt"></p>
+<ul>
+<li>被动模式：客户端主动建立数据连接，其中客户端的端口号由客户端自己指定，服务器端的端口号随机。</li>
+</ul>
+<p><img src="images/FTP被动模式.jpg" alt="alt"></p>
+<p>主动模式要求客户端开放端口号给服务器端，需要去配置客户端的防火墙。被动模式只需要服务器端开放端口号即可，无需客户端配置防火墙。但是被动模式会导致服务器端的安全性减弱，因为开放了过多的端口号。</p>
+<h1 id="DHCP-动态主机配置协议"><a href="#DHCP-动态主机配置协议" class="headerlink" title="DHCP 动态主机配置协议"></a>DHCP 动态主机配置协议</h1><p>DHCP (Dynamic Host Configuration Protocol) 提供了即插即用的连网方式，用户不再需要手动配置 IP 地址等信息。</p>
+<p>DHCP 配置的内容不仅是 IP 地址，还包括子网掩码、网关 IP 地址。</p>
+<p>DHCP 工作过程如下：</p>
+<ul>
+<li><p>客户端发送 Discover 报文，该报文的目的地址为 255.255.255.255:67，源地址为 0.0.0.0:68，被放入 UDP 中，该报文被广播到同一个子网的所有主机上。如果客户端和 DHCP 服务器不在同一个子网，就需要使用中继代理。</p>
+</li>
+<li><p>DHCP 服务器收到 Discover 报文之后，发送 Offer 报文给客户端，该报文包含了客户端所需要的信息。因为客户端可能收到多个 DHCP 服务器提供的信息，因此客户端需要进行选择。</p>
+</li>
+<li><p>如果客户端选择了某个 DHCP 服务器提供的信息，那么就发送 Request 报文给该 DHCP 服务器。</p>
+</li>
+<li><p>DHCP 服务器发送 Ack 报文，表示客户端此时可以使用提供给它的信息。</p>
+</li>
+</ul>
+<h1 id="Telne-远程登录协议"><a href="#Telne-远程登录协议" class="headerlink" title="Telne 远程登录协议"></a>Telne 远程登录协议</h1><p>TELNET 用于登录到远程主机上，并且远程主机上的输出也会返回。</p>
+<p>TELNET 可以适应许多计算机和操作系统的差异，例如不同操作系统系统的换行符定义。</p>
+<h1 id="电子邮件协议"><a href="#电子邮件协议" class="headerlink" title="电子邮件协议"></a>电子邮件协议</h1><p>一个电子邮件系统由三部分组成：用户代理、邮件服务器以及邮件协议。</p>
+<p>邮件协议包含发送协议和读取协议，发送协议常用 SMTP，读取协议常用 POP3 和 IMAP。</p>
+<p><img src="images/电子邮件.png" alt="alt"></p>
+<h2 id="1-SMTP"><a href="#1-SMTP" class="headerlink" title="1. SMTP"></a>1. SMTP</h2><p>SMTP 只能发送 ASCII 码，而互联网邮件扩充 MIME 可以发送二进制文件。MIME 并没有改动或者取代 SMTP，而是增加邮件主体的结构，定义了非 ASCII 码的编码规则。</p>
+<h2 id="2-POP3"><a href="#2-POP3" class="headerlink" title="2. POP3"></a>2. POP3</h2><p>POP3 的特点是只要用户从服务器上读取了邮件，就把该邮件删除。但最新版本的 POP3 可以不删除邮件。</p>
+<h2 id="3-IMAP"><a href="#3-IMAP" class="headerlink" title="3. IMAP"></a>3. IMAP</h2><p>IMAP 协议中客户端和服务器上的邮件保持同步，如果不手动删除邮件，那么服务器上的邮件也不会被删除。IMAP 这种做法可以让用户随时随地去访问服务器上的邮件。</p>
+<h1 id="常用端口"><a href="#常用端口" class="headerlink" title="常用端口"></a>常用端口</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">应用</th>
+<th style="text-align:center">应用层协议</th>
+<th style="text-align:center">端口号</th>
+<th style="text-align:center">传输层协议</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">域名解析</td>
+<td style="text-align:center">DNS</td>
+<td style="text-align:center">53</td>
+<td style="text-align:center">UDP/TCP</td>
+<td style="text-align:center">长度超过 512 字节时使用 TCP</td>
+</tr>
+<tr>
+<td style="text-align:center">动态主机配置协议</td>
+<td style="text-align:center">DHCP</td>
+<td style="text-align:center">68/67</td>
+<td style="text-align:center">UDP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">简单网络管理协议</td>
+<td style="text-align:center">SNMP</td>
+<td style="text-align:center">161/162</td>
+<td style="text-align:center">UDP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">文件传送协议</td>
+<td style="text-align:center">FTP</td>
+<td style="text-align:center">20/21</td>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center">控制连接21，数据连接20</td>
+</tr>
+<tr>
+<td style="text-align:center">远程终端协议</td>
+<td style="text-align:center">Telnet</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">超文本传送协议</td>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">80</td>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">简单邮件传送协议</td>
+<td style="text-align:center">SMTP</td>
+<td style="text-align:center">25</td>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">邮件读取协议</td>
+<td style="text-align:center">POP3</td>
+<td style="text-align:center">110</td>
+<td style="text-align:center">TCP</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">网际报文存取协议</td>
+<td style="text-align:center">IMAP</td>
+<td style="text-align:center">143</td>
+<td style="text-align:center">TCP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="Web-页面请求过程"><a href="#Web-页面请求过程" class="headerlink" title="Web 页面请求过程"></a>Web 页面请求过程</h1><h2 id="1-DHCP-配置主机信息"><a href="#1-DHCP-配置主机信息" class="headerlink" title="1. DHCP 配置主机信息"></a>1. DHCP 配置主机信息</h2><p>假设主机最开始没有 IP 地址以及其它信息，那么就需要先使用 DHCP 来获取。</p>
+<p>主机生成一个 DHCP 请求报文，并将这个报文放入具有目的端口 67 和源端口 68 的 UDP 报文段中。</p>
+<p>该报文段则被放入在一个具有广播 IP 目的地址(255.255.255.255) 和源 IP 地址（0.0.0.0）的 IP 数据报中。</p>
+<p>该数据报则被放置在 MAC 帧中，该帧具有目的地址 FF:FF:FF:FF:FF:FF，将广播到与交换机连接的所有设备。</p>
+<p>连接在交换机的 DHCP 服务器收到广播帧之后，不断地向上分解得到 IP 数据报、UDP 报文段、DHCP 请求报文，之后生成 DHCP ACK 报文，该报文包含以下信息：IP 地址、DNS 服务器的 IP 地址、默认网关路由器的 IP 地址和子网掩码。该报文被放入 UDP 报文段中，UDP 报文段有被放入 IP 数据报中，最后放入 MAC 帧中。</p>
+<p>该帧的目的地址是请求主机的 MAC 地址，因为交换机具有自学习能力，之前主机发送了广播帧之后就记录了 MAC 地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。</p>
+<p>主机收到该帧后，不断分解得到 DHCP 报文。之后就配置它的 IP 地址、子网掩码和 DNS 服务器的 IP 地址，并在其 IP 转发表中安装默认网关。</p>
+<h2 id="2-ARP-解析-MAC-地址"><a href="#2-ARP-解析-MAC-地址" class="headerlink" title="2. ARP 解析 MAC 地址"></a>2. ARP 解析 MAC 地址</h2><p>主机通过浏览器生成一个 TCP 套接字，套接字向 HTTP 服务器发送 HTTP 请求。为了生成该套接字，主机需要知道网站的域名对应的 IP 地址。</p>
+<p>主机生成一个 DNS 查询报文，该报文具有 53 号端口，因为 DNS 服务器的端口号是 53。</p>
+<p>该 DNS 查询报文被放入目的地址为 DNS 服务器 IP 地址的 IP 数据报中。</p>
+<p>该 IP 数据报被放入一个以太网帧中，该帧将发送到网关路由器。</p>
+<p>DHCP 过程只知道网关路由器的 IP 地址，为了获取网关路由器的 MAC 地址，需要使用 ARP 协议。</p>
+<p>主机生成一个包含目的地址为网关路由器 IP 地址的 ARP 查询报文，将该 ARP 查询报文放入一个具有广播目的地址（FF:FF:FF:FF:FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧转发给所有的连接设备，包括网关路由器。</p>
+<p>网关路由器接收到该帧后，不断向上分解得到 ARP 报文，发现其中的 IP 地址与其接口的 IP 地址匹配，因此就发送一个 ARP 回答报文，包含了它的 MAC 地址，发回给主机。</p>
+<h2 id="3-DNS-解析域名"><a href="#3-DNS-解析域名" class="headerlink" title="3. DNS 解析域名"></a>3. DNS 解析域名</h2><p>知道了网关路由器的 MAC 地址之后，就可以继续 DNS 的解析过程了。</p>
+<p>网关路由器接收到包含 DNS 查询报文的以太网帧后，抽取出 IP 数据报，并根据转发表决定该 IP 数据报应该转发的路由器。</p>
+<p>因为路由器具有内部网关协议（RIP、OSPF）和外部网关协议（BGP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达 DNS 服务器的路由表项。</p>
+<p>到达 DNS 服务器之后，DNS 服务器抽取出 DNS 查询报文，并在 DNS 数据库中查找待解析的域名。</p>
+<p>找到 DNS 记录之后，发送 DNS 回答报文，将该回答报文放入 UDP 报文段中，然后放入 IP 数据报中，通过路由器反向转发回网关路由器，并经过以太网交换机到达主机。</p>
+<h2 id="4-HTTP-请求页面"><a href="#4-HTTP-请求页面" class="headerlink" title="4. HTTP 请求页面"></a>4. HTTP 请求页面</h2><p>有了 HTTP 服务器的 IP 地址之后，主机就能够生成 TCP 套接字，该套接字将用于向 Web 服务器发送 HTTP GET 报文。</p>
+<p>在生成 TCP 套接字之前，必须先与 HTTP 服务器进行三次握手来建立连接。生成一个具有目的端口 80 的 TCP SYN 报文段，并向 HTTP 服务器发送该报文段。</p>
+<p>HTTP 服务器收到该报文段之后，生成 TCP SYN ACK 报文段，发回给主机。</p>
+<p>连接建立之后，浏览器生成 HTTP GET 报文，并交付给 HTTP 服务器。</p>
+<p>HTTP 服务器从 TCP 套接字读取 HTTP GET 报文，生成一个 HTTP 响应报文，将 Web 页面内容放入报文主体中，发回给主机。</p>
+<p>浏览器收到 HTTP 响应报文后，抽取出 Web 页面内容，之后进行渲染，显示 Web 页面。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/07/20200507_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E4%BC%A0%E8%BE%93%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/07/20200507_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E4%BC%A0%E8%BE%93%E5%B1%82/" class="post-title-link" itemprop="url">传输层</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-07 12:00:00" itemprop="dateCreated datePublished" datetime="2020-05-07T12:00:00+08:00">2020-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-09 00:44:25" itemprop="dateModified" datetime="2020-05-09T00:44:25+08:00">2020-05-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。</p>
+<h1 id="UDP-的特点"><a href="#UDP-的特点" class="headerlink" title="UDP 的特点"></a>UDP 的特点</h1><p><strong>用户数据报协议</strong> UDP(User Datagram Protocol)是无连接的，尽最大可能交付（不提供可靠性：将应用程序传给IP的数据发送出去，但是并不保证能到达目的地），没有拥塞控制，面向报文（对于应用程序传下来的报文不合并也不拆分，只是添加 UDP 首部），支持一对一、一对多、多对一和多对多的交互通信。</p>
+<p>UDP是制造IP分片的主要协议，数据长度超过MTU，就要对IP数据报进行分片</p>
+<p>UDP三大应用：</p>
+<ul>
+<li>1.查询DNS（不需要TCP的三次握手，fast，多个DNS同时查询）</li>
+<li>2.数据传输TFTP：停止等待协议</li>
+<li>3.语音视频流：支持广播和组播，支持丢包保障效率</li>
+</ul>
+<h1 id="UDP-首部格式"><a href="#UDP-首部格式" class="headerlink" title="UDP 首部格式"></a>UDP 首部格式</h1><p><img src="images/UDP首部格式.jpg" alt="alt"><br>首部字段只有 8 个字节，包括源端口、目的端口、长度、检验和。12 字节的伪首部是为了计算检验和临时添加的。</p>
+<h1 id="TCP-的特点"><a href="#TCP-的特点" class="headerlink" title="TCP 的特点"></a>TCP 的特点</h1><p>传输控制协议 TCP（Transmission Control Protocol）是面向连接的，提供可靠交付，有流量控制，拥塞控制，提供全双工通信，面向字节流（把应用层传下来的报文看成字节流，把字节流组织成大小不等的数据块），每一条 TCP 连接只能是点对点的（一对一）。</p>
+<p>面向连接意味着两个使用TCP的应用（一般是一个C一个S）在彼此交换数据前要建立TCP连接.</p>
+<p>TCP放在IP数据报中（即可靠的TCP交给不可靠的IP(IP无连接)）</p>
+<h1 id="TCP-首部格式"><a href="#TCP-首部格式" class="headerlink" title="TCP 首部格式"></a>TCP 首部格式</h1><p><img src="images/TCP首部格式.png" alt="alt"></p>
+<ul>
+<li><p>每个TCP段都包含源端口和目的端口的端口号，用于寻找发送端和接收端应用进程。这两个值加上IP首部中的源端IP地址和目的端IP地址唯一确定一个TCP连接。<br>一个IP地址和一个端口号称为一个插口（Socket）。</p>
+</li>
+<li><p>序号 ：用于对字节流进行编号，例如序号为 301，表示第一个字节的编号为 301，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 401。</p>
+</li>
+<li><p>确认号 ：期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。确认序号应当是上次已成功接收到的数据字节序号加1，且只有在ACK为1时，确认号才有效。</p>
+</li>
+<li><p>数据偏移 ：指的是数据部分距离报文段起始处的偏移量，实际上指的是首部的长度。（在别的书中，这个地方就是4位首部长度）<br>4位首部长度不是指整个首部的长度，而是指首部有几个4字节的部分；TCP默认首部长度为5，即20字节，首部长度为4位二进制数，所以最多有15，即60字节，比20字节多的部分都是选项，这也是TCP为什么要有32位的序号的原因之一</p>
+</li>
+<li><p>确认 ACK ：当 ACK=1 时确认号字段有效，否则无效。TCP 规定，在连接建立后所有传送的报文段都必须把 ACK 置 1。</p>
+</li>
+<li><p>同步 SYN ：在连接建立时用来同步序号。当 SYN=1，ACK=0 时表示这是一个连接请求报文段。若对方同意建立连接，则响应报文中 SYN=1，ACK=1。</p>
+</li>
+<li><p>终止 FIN ：用来释放一个连接，当 FIN=1 时，表示此报文段的发送方的数据已发送完毕，并要求释放连接。</p>
+</li>
+<li><p>窗口 ：窗口值作为接收方让发送方设置其发送窗口的依据。之所以要有这个限制，是因为接收方的数据缓存空间是有限的。</p>
+</li>
+</ul>
+<h1 id="TCP-的三次握手"><a href="#TCP-的三次握手" class="headerlink" title="TCP 的三次握手"></a>TCP 的三次握手</h1><p><img src="images/TCP的三次握手.png" alt="alt"></p>
+<p>假设 A 为客户端，B 为服务器端。</p>
+<ul>
+<li><p>首先 B 处于 LISTEN（监听）状态，等待客户的连接请求。</p>
+</li>
+<li><p>A 向 B 发送连接请求报文，SYN=1，ACK=0，选择一个初始的序号 x。(初始序列号ISN是一个随时间变化的量，每4ms加一，避免不同连接有相同的序列号而出错连接TCP连接终止)</p>
+</li>
+<li><p>B 收到连接请求报文，如果同意建立连接，则向 A 发送连接确认报文，SYN=1，ACK=1，确认号为 x+1，同时也选择一个初始的序号 y。</p>
+</li>
+<li><p>A 收到 B 的连接确认报文后，还要向 B 发出确认，确认号为 y+1，序号为 x+1。</p>
+</li>
+<li><p>B 收到 A 的确认后，连接建立。</p>
+</li>
+</ul>
+<h2 id="三次握手的原因"><a href="#三次握手的原因" class="headerlink" title="三次握手的原因"></a>三次握手的原因</h2><p>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。</p>
+<p>客户端发送的连接请求如果在网络中滞留，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，就会重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开两个连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。</p>
+<h1 id="TCP-的四次挥手"><a href="#TCP-的四次挥手" class="headerlink" title="TCP 的四次挥手"></a>TCP 的四次挥手</h1><p><img src="images/TCP四次挥手.jpg" alt="alt"></p>
+<ul>
+<li><p>A 发送连接释放报文，FIN=1。</p>
+</li>
+<li><p>B 收到之后发出确认，此时 TCP 属于半关闭状态，B 能向 A 发送数据但是 A 不能向 B 发送数据。</p>
+</li>
+<li><p>当 B 不再需要连接时，发送连接释放报文，FIN=1。</p>
+</li>
+<li><p>A 收到后发出确认，进入 TIME-WAIT 状态，等待 2 MSL（最大报文存活时间）后释放连接。</p>
+</li>
+<li><p>B 收到 A 的确认后释放连接。</p>
+</li>
+</ul>
+<p>应用层应用程序发送FIN，该侧TCP就关闭，另一侧接收到FIN，返回ACK，同时需要返回一个自己的FIN通知源侧，源侧接收到这个FIN后，虽然TCP连接已关闭，但是会返回一个ACK</p>
+<h2 id="四次挥手的原因"><a href="#四次挥手的原因" class="headerlink" title="四次挥手的原因"></a>四次挥手的原因</h2><p>客户端发送了 FIN 连接释放报文之后，服务器收到了这个报文，就进入了 CLOSE-WAIT 状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送 FIN 连接释放报文。</p>
+<h2 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h2><p>客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由：</p>
+<ul>
+<li><p>确保最后一个确认报文能够到达。如果 B 没收到 A 发送来的确认报文，那么就会重新发送连接释放请求报文，A 等待一段时间就是为了处理这种情况的发生。</p>
+</li>
+<li><p>等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</p>
+</li>
+</ul>
+<h1 id="TCP-可靠传输"><a href="#TCP-可靠传输" class="headerlink" title="TCP 可靠传输"></a>TCP 可靠传输</h1><p>TCP 使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
+<p>一个报文段从发送再到接收到确认所经过的时间称为<strong>往返时间</strong> $RTT$，加权平均往返时间 RTTs 计算如下：</p>
+<script type="math/tex; mode=display">RTTs = (1 - a) \times (RTTs) + a \times RTT</script><p>其中，$0 \leq a ＜ 1$，$RTTs$ 随着$a$的增加更容易受到$ RTT $的影响。<br><strong>超时时间</strong> $RTO$ 应该略大于 $RTTs$，TCP 使用的超时时间计算如下：</p>
+<script type="math/tex; mode=display">RTO = RTTS + 4 \times RTT_d</script><p>其中 $RTT_d$ 为偏差的加权平均值。</p>
+<h1 id="TCP-滑动窗口"><a href="#TCP-滑动窗口" class="headerlink" title="TCP 滑动窗口"></a>TCP 滑动窗口</h1><p>滑动窗口协议滑动窗口实现了TCP流量控制。</p>
+<p>窗口是缓存的一部分，用来暂时存放字节流。发送方和接收方各有一个窗口，接收方通过 TCP 报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其它信息设置自己的窗口大小。</p>
+<p>发送窗口内的字节都允许被发送，接收窗口内的字节都允许被接收。如果发送窗口左部的字节已经发送并且收到了确认，那么就将发送窗口向右滑动一定距离，直到左部第一个字节不是已发送并且已确认的状态；接收窗口的滑动类似，接收窗口左部字节已经发送确认并交付主机，就向右滑动接收窗口。</p>
+<p>接收窗口只会对窗口内最后一个按序到达的字节进行确认，例如接收窗口已经收到的字节为 {31, 34, 35}，其中 {31} 按序到达，而 {34, 35} 就不是，因此只对字节 31 进行确认。发送方得到一个字节的确认之后，就知道这个字节之前的所有字节都已经被接收。</p>
+<p><img src="images/TCP滑动窗口.jpg" alt="alt"></p>
+<h1 id="TCP-流量控制"><a href="#TCP-流量控制" class="headerlink" title="TCP 流量控制"></a>TCP 流量控制</h1><p>滑动窗口协议滑动窗口实现了TCP流量控制。</p>
+<p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h1 id="TCP-拥塞控制"><a href="#TCP-拥塞控制" class="headerlink" title="TCP 拥塞控制"></a>TCP 拥塞控制</h1><p>如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。</p>
+<p><img src="images/拥塞控制的作用.jpg" alt="alt"></p>
+<p>TCP 主要通过四个算法来进行拥塞控制：<strong>慢启动</strong>、<strong>拥塞避免</strong>、<strong>快速重传</strong>、<strong>快速恢复</strong>。</p>
+<p>发送方需要维护一个叫做<strong>拥塞窗口</strong>（cwnd）的状态变量，注意拥塞窗口与发送方窗口的区别：拥塞窗口只是一个状态变量，实际决定发送方能发送多少数据的是发送方窗口。</p>
+<p><img src="images/TCP慢启动拥塞避免.png" alt="alt"></p>
+<h2 id="慢启动与拥塞避免"><a href="#慢启动与拥塞避免" class="headerlink" title="慢启动与拥塞避免"></a>慢启动与拥塞避免</h2><p>发送的最初执行慢启动，令 $cwnd = 1$，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p>注意到慢启动每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个<strong>慢启动门限</strong> ssthresh，当 $cwnd \geq ssthresh$ 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
+<p>如果出现了超时，则令 $ssthresh = cwnd / 2$，然后重新执行慢启动。</p>
+<h2 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h2><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快速恢复，令 $ssthresh = cwnd / 2$，$cwnd = ssthresh$，注意到此时直接进入拥塞避免。</p>
+<p>慢启动和快速恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢启动 cwnd 设定为 1，而快速恢复 cwnd 设定为 ssthresh。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>正常时：cwnd（拥塞窗口）值指数上升，直到达到慢启动门限值（ssthresh）后开始加性增长（线性）。</li>
+<li>超时：cwnd值变为1，慢启动门限变为原来cwnd值的一半，然后慢启动，到达慢启动门限值后进入拥塞避免。</li>
+<li>重复3个ACK（报文丢失）：首先，快速重传；之后快速恢复：快速恢复时，cwnd值设置为慢启动门限值（实际是慢启动门限值的一半加3）。</li>
+</ul>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/06/20200506_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/06/20200506_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E7%BD%91%E7%BB%9C%E5%B1%82/" class="post-title-link" itemprop="url">网络层</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-06 23:00:00" itemprop="dateCreated datePublished" datetime="2020-05-06T23:00:00+08:00">2020-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-11 19:05:46" itemprop="dateModified" datetime="2020-05-11T19:05:46+08:00">2020-05-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。</p>
+<p>与 IP 协议配套使用的三个协议：</p>
+<ul>
+<li>地址解析协议 ARP（Address Resolution Protocol）</li>
+<li>网际控制报文协议 ICMP（Internet Control Message Protocol）</li>
+<li>网际组管理协议 IGMP（Internet Group Management Protocol）</li>
+</ul>
+<h1 id="IP数据报格式"><a href="#IP数据报格式" class="headerlink" title="IP数据报格式"></a>IP数据报格式</h1><p><img src="images/IP数据报格式.jpg" alt="alt"></p>
+<ul>
+<li><p>版本 : 有 4（IPv4）和 6（IPv6）两个值；</p>
+</li>
+<li><p>首部长度 : 占 4 位，因此最大值为 15。值为 1 表示的是 1 个 32 位字的长度，也就是 4 字节。因为固定部分长度为 20 字节，因此该值最小为 5。如果可选字段的长度不是 4 字节的整数倍，就用尾部的填充部分来填充。</p>
+</li>
+<li><p>区分服务 : 用来获得更好的服务，一般情况下不使用。不置位表示一般传输。</p>
+</li>
+<li><p>总长度 : 包括首部长度和数据部分长度。总长度16位表明最大65535字节。</p>
+</li>
+<li><p>标识 : 在数据报长度过长从而发生分片的情况下，相同数据报的不同分片具有相同的标识符。</p>
+</li>
+<li><p>标志 : 占3位。df，一旦大于mtu就丢弃，并返回icmp回显错误；mf：是否有更多的帧more fragment</p>
+</li>
+<li><p>片偏移 : 和标识符一起，用于发生分片的情况的重新组装。片偏移的单位为 8 字节。</p>
+</li>
+</ul>
+<p><img src="images/数据报的分片.png" alt="alt">]</p>
+<ul>
+<li><p>生存时间 ：TTL，它的存在是为了防止无法交付的数据报在互联网中不断兜圈子。以路由器跳数为单位，每过一个路由器值就减一，当 TTL 为 0 时丢弃数据报。</p>
+</li>
+<li><p>协议 ：指出携带的数据应该上交给哪个协议进行处理，例如 ICMP、TCP、UDP 等。即该数据报在IP头部之后的头部类型。</p>
+</li>
+<li><p>首部检验和 ：因为数据报每经过一个路由器，都要重新计算检验和，因此检验和不包含数据部分可以减少计算的工作量。发送与接收时各校验一遍。</p>
+</li>
+</ul>
+<h1 id="IP地址编址"><a href="#IP地址编址" class="headerlink" title="IP地址编址"></a>IP地址编址</h1><p>IP地编址的三个历史阶段</p>
+<ul>
+<li>分类</li>
+<li>子网划分</li>
+<li>无分类（CIDR）</li>
+</ul>
+<h2 id="1-分类"><a href="#1-分类" class="headerlink" title="1. 分类"></a>1. 分类</h2><p>IP地址由两部分组成：网络号和主机号。<br><strong>IP 地址::= {&lt; 网络号 &gt;, &lt; 主机号 &gt;}</strong></p>
+<p><img src="images/IP地址中的网络号字段和主机号字段.png" alt="alt"></p>
+<h2 id="2-子网划分"><a href="#2-子网划分" class="headerlink" title="2. 子网划分"></a>2. 子网划分</h2><p>通过在主机号字段中拿一部分作为子网号，把两级 IP 地址划分为三级 IP 地址。</p>
+<p><strong>IP 地址 ::= {&lt; 网络号 &gt;, &lt; 子网号 &gt;, &lt; 主机号 &gt;}</strong></p>
+<p>要使用子网，必须配置子网掩码。</p>
+<blockquote>
+<p>一个 B 类地址的默认子网掩码为 255.255.0.0，如果 B 类地址的子网占两个比特，那么子网掩码为 11111111 11111111 11000000 00000000，也就是 255.255.192.0。</p>
+</blockquote>
+<p><strong>外部网络看不到子网的存在。</strong></p>
+<h2 id="3-无分类"><a href="#3-无分类" class="headerlink" title="3. 无分类"></a>3. 无分类</h2><p>无分类编址 CIDR 消除了传统 A 类、B 类和 C 类地址以及划分子网的概念，使用网络前缀和主机号来对 IP 地址进行编码，网络前缀的长度可以根据需要变化。</p>
+<p><strong>IP 地址 ::= {&lt; 网络前缀号 &gt;, &lt; 主机号 &gt;}</strong></p>
+<p>CIDR 的记法上采用在 IP 地址后面加上网络前缀长度的方法，例如 128.14.35.7/20 表示前 20 位为网络前缀。</p>
+<p>CIDR 的地址掩码可以继续称为子网掩码，子网掩码首 1 长度为网络前缀的长度。</p>
+<p>一个 CIDR 地址块中有很多地址，一个 CIDR 表示的网络就可以表示原来的很多个网络，并且在路由表中只需要一个路由就可以代替原来的多个路由，减少了路由表项的数量。把这种通过使用网络前缀来减少路由表项的方式称为路由聚合，也称为 构成超网 。</p>
+<p>在路由表中的项目由“网络前缀”和“下一跳地址”组成，在查找时可能会得到不止一个匹配结果，应当采用最长前缀匹配来确定应该匹配哪一个。</p>
+<h1 id="地址解析协议ARP"><a href="#地址解析协议ARP" class="headerlink" title="地址解析协议ARP"></a>地址解析协议ARP</h1><p>ARP 实现由 IP 地址得到 MAC 地址。</p>
+<p>网络层实现主机之间的通信，而链路层实现具体每段链路之间的通信。因此在通信过程中，IP 数据报的源地址和目的地址始终不变，而 MAC 地址随着链路的改变而改变。</p>
+<p>每个主机都有一个 ARP 高速缓存，里面有本局域网上的各主机和路由器的 IP 地址到 MAC 地址的映射表。</p>
+<p>如果主机 A 知道主机 B 的 IP 地址，但是 ARP 高速缓存中没有该 IP 地址到 MAC 地址的映射，此时主机 A 通过广播的方式发送 ARP 请求分组，主机 B 收到该请求后会发送 ARP 响应分组给主机 A 告知其 MAC 地址，随后主机 A 向其高速缓存中写入主机 B 的 IP 地址到 MAC 地址的映射。</p>
+<h1 id="网际控制报文协议-ICMP"><a href="#网际控制报文协议-ICMP" class="headerlink" title="网际控制报文协议 ICMP"></a>网际控制报文协议 ICMP</h1><p>ICMP 是为了更有效地转发 IP 数据报和提高交付成功的机会。它封装在 IP 数据报中，但是不属于高层协议。</p>
+<p><img src="images/ICMP报文格式.jpg" alt="alt"></p>
+<p>ICMP 报文分为差错报告报文和询问报文。</p>
+<p><img src="images/常见ICMP报文类型.jpg" alt="alt"></p>
+<h2 id="1-Ping"><a href="#1-Ping" class="headerlink" title="1. Ping"></a>1. Ping</h2><p>Ping 是 ICMP 的一个重要应用，主要用来测试两台主机之间的连通性。</p>
+<p>Ping 的原理是通过向目的主机发送 ICMP Echo 请求报文，目的主机收到之后会发送 Echo 回答报文。Ping 会根据时间和成功响应的次数估算出数据包往返时间以及丢包率。</p>
+<h2 id="2-Traceroute"><a href="#2-Traceroute" class="headerlink" title="2. Traceroute"></a>2. Traceroute</h2><p>Traceroute 是 ICMP 的另一个应用，用来跟踪一个分组从源点到终点的路径。</p>
+<p>Traceroute 发送的 IP 数据报封装的是无法交付的 UDP 用户数据报，并由目的主机发送终点不可达差错报告报文。</p>
+<blockquote>
+<ul>
+<li>源主机向目的主机发送一连串的 IP 数据报。第一个数据报 P1 的生存时间 TTL 设置为 1，当 P1 到达路径上的第一个路由器 R1 时，R1 收下它并把 TTL 减 1，此时 TTL 等于 0，R1 就把 P1 丢弃，并向源主机发送一个 ICMP 时间超过差错报告报文；</li>
+<li>源主机接着发送第二个数据报 P2，并把 TTL 设置为 2。P2 先到达 R1，R1 收下后把 TTL 减 1 再转发给 R2，R2 收下后也把 TTL 减 1，由于此时 TTL 等于 0，R2 就丢弃 P2，并向源主机发送一个 ICMP 时间超过差错报文。</li>
+<li>不断执行这样的步骤，直到最后一个数据报刚刚到达目的主机，主机不转发数据报，也不把 TTL 值减 1。但是因为数据报封装的是无法交付的 UDP，因此目的主机要向源主机发送 ICMP 终点不可达差错报告报文。</li>
+<li>之后源主机知道了到达目的主机所经过的路由器 IP 地址以及到达每个路由器的往返时间。</li>
+</ul>
+</blockquote>
+<h1 id="网络层设备：路由器"><a href="#网络层设备：路由器" class="headerlink" title="网络层设备：路由器"></a>网络层设备：路由器</h1><p>路由器从功能上可以划分为：路由选择和分组转发。</p>
+<p>分组转发结构由三个部分组成：交换结构、一组输入端口和一组输出端口。</p>
+<p><img src="images/路由器结构.jpg" alt="alt"></p>
+<h1 id="路由器分组转发流程"><a href="#路由器分组转发流程" class="headerlink" title="路由器分组转发流程"></a>路由器分组转发流程</h1><ul>
+<li>从数据报的首部提取目的主机的 IP 地址 D，得到目的网络地址 N。</li>
+<li>若 N 就是与此路由器直接相连的某个网络地址，则进行直接交付；</li>
+<li>若路由表中有目的地址为 D 的特定主机路由，则把数据报传送给表中所指明的下一跳路由器；</li>
+<li>若路由表中有到达网络 N 的路由，则把数据报传送给路由表中所指明的下一跳路由器；</li>
+<li>若路由表中有一个默认路由，则把数据报传送给路由表中所指明的默认路由器；</li>
+<li>报告转发分组出错。</li>
+</ul>
+<h1 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h1><p>路由选择协议都是自适应的，能随着网络通信量和拓扑结构的变化而自适应地进行调整。</p>
+<p>互联网可以划分为许多较小的自治系统 AS，一个 AS 可以使用一种和别的 AS 不同的路由选择协议。</p>
+<p>可以把路由选择协议划分为两大类：</p>
+<ul>
+<li>自治系统内部的路由选择：RIP 和 OSPF</li>
+<li>自治系统间的路由选择：BGP</li>
+</ul>
+<h2 id="1-内部网关协议-RIP"><a href="#1-内部网关协议-RIP" class="headerlink" title="1. 内部网关协议 RIP"></a>1. 内部网关协议 RIP</h2><p>RIP 是一种基于距离向量的路由选择协议。距离是指跳数，直接相连的路由器跳数为 1。跳数最多为 15，超过 15 表示不可达。</p>
+<p>RIP 按固定的时间间隔仅和相邻路由器交换自己的路由表，经过若干次交换之后，所有路由器最终会知道到达本自治系统中任何一个网络的最短距离和下一跳路由器地址。</p>
+<h2 id="2-内部网关协议-OSPF"><a href="#2-内部网关协议-OSPF" class="headerlink" title="2. 内部网关协议 OSPF"></a>2. 内部网关协议 OSPF</h2><h2 id="3-外部网关协议-BGP"><a href="#3-外部网关协议-BGP" class="headerlink" title="3. 外部网关协议 BGP"></a>3. 外部网关协议 BGP</h2><p>BGP（Border Gateway Protocol，边界网关协议）</p>
+<p>BGP 只能寻找一条比较好的路由，而不是最佳路由。</p>
+<p>每个 AS 都必须配置 BGP 发言人，通过在两个相邻 BGP 发言人之间建立 TCP 连接来交换路由信息。</p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://www.cnblogs.com/wktwj/p/10862618.html" target="_blank" rel="noopener">子网</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -977,413 +1879,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">进程通信</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-19 04:00:00 / 修改时间：23:24:51" itemprop="dateCreated datePublished" datetime="2020-04-19T04:00:00+08:00">2020-04-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>168</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="进程通信-IPC-Inter-Process-Communication-的六种方式"><a href="#进程通信-IPC-Inter-Process-Communication-的六种方式" class="headerlink" title="进程通信(IPC, Inter Process Communication)的六种方式"></a>进程通信(IPC, Inter Process Communication)的六种方式</h1><p><strong>进程通信：进程间传输信息。</strong><br>进程通信是一种手段，而进程同步是一种目的。也可以说，为了能够达到进程同步的目的，需要让进程进行通信，传输一些进程同步所需要的信息。</p>
-<blockquote>
-<h2 id="1-管道"><a href="#1-管道" class="headerlink" title="1. 管道"></a>1. 管道</h2><blockquote>
-</blockquote>
-<h2 id="2-FIFO（命名管道）"><a href="#2-FIFO（命名管道）" class="headerlink" title="2. FIFO（命名管道）"></a>2. FIFO（命名管道）</h2><blockquote>
-</blockquote>
-<h2 id="3-消息队列"><a href="#3-消息队列" class="headerlink" title="3. 消息队列"></a>3. 消息队列</h2><blockquote>
-</blockquote>
-<h2 id="4-信号量"><a href="#4-信号量" class="headerlink" title="4. 信号量"></a>4. 信号量</h2><blockquote>
-</blockquote>
-<h2 id="5-共享储存"><a href="#5-共享储存" class="headerlink" title="5. 共享储存"></a>5. 共享储存</h2><blockquote>
-</blockquote>
-<h2 id="6-套接字"><a href="#6-套接字" class="headerlink" title="6. 套接字"></a>6. 套接字</h2><blockquote>
-</blockquote>
-</blockquote>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/" class="post-title-link" itemprop="url">进程同步的四种方式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-19 03:00:00 / 修改时间：22:19:14" itemprop="dateCreated datePublished" datetime="2020-04-19T03:00:00+08:00">2020-04-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>760</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="进程同步的四种方式"><a href="#进程同步的四种方式" class="headerlink" title="进程同步的四种方式"></a>进程同步的四种方式</h1><p><strong>进程同步：控制多个进程按一定顺序执行；</strong></p>
-<blockquote>
-<h2 id="1-临界区"><a href="#1-临界区" class="headerlink" title="1. 临界区"></a>1. 临界区</h2><blockquote>
-<p> 对临界资源进行访问的那段代码称为临界区。为了互斥访问临界资源，每个进程在进入临界区之前，需要先进行检查。通过对多线程的串行化来访问公共资源或一段代码，速度快，适合控制数据访问。</p>
-</blockquote>
-<h2 id="2-同步与互斥"><a href="#2-同步与互斥" class="headerlink" title="2. 同步与互斥"></a>2. 同步与互斥</h2><blockquote>
-<p> 同步：多个进程因为合作产生的直接制约关系，使得进程有一定的先后执行关系。<br>互斥：多个进程在同一时刻只有一个进程能进入临界区。互斥对象只有一个，只有拥有互斥对象的线程才具有访问资源的权限。</p>
-</blockquote>
-<h2 id="3-信号量"><a href="#3-信号量" class="headerlink" title="3. 信号量"></a>3. 信号量</h2><blockquote>
-<p> 信号量（Semaphore）是一个整型变量，可以对其执行 down 和 up 操作，也就是常见的 P 和 V 操作。<br>down : 如果信号量大于 0 ，执行 -1 操作；如果信号量等于 0，进程睡眠，等待信号量大于 0；<br>up ：对信号量执行 +1 操作，唤醒睡眠的进程让其完成 down 操作。<br>down 和 up 操作需要被设计成原语，不可分割，通常的做法是在执行这些操作的时候屏蔽中断。<br>如果信号量的取值只能为 0 或者 1，那么就成为了互斥量（Mutex） ，0 表示临界区已经加锁，1 表示临界区解锁。<br>使用信号量实现生产者-消费者问题（代码看一下）</p>
-</blockquote>
-<h2 id="4-管程"><a href="#4-管程" class="headerlink" title="4. 管程"></a>4. 管程</h2><blockquote>
-<p> 管程可以看做一个软件模块，它是将共享的变量和对于这些共享变量的操作封装起来，形成一个具有一定接口的功能模块，进程可以调用管程来实现进程级别的并发控制。<br>管程有一个重要特性：在一个时刻只能有一个进程使用管程。进程在无法继续执行的时候不能一直占用管程，否则其它进程永远不能使用管程。<br>管程引入了 条件变量 以及相关的操作：wait() 和 signal() 来实现同步操作。对条件变量执行 wait() 操作会导致调用进程阻塞，把管程让出来给另一个进程持有。signal() 操作用于唤醒被阻塞的进程。</p>
-</blockquote>
-</blockquote>
-<h1 id="经典同步问题（代码实现）"><a href="#经典同步问题（代码实现）" class="headerlink" title="经典同步问题（代码实现）"></a>经典同步问题（代码实现）</h1><h2 id="1-哲学家进餐问题"><a href="#1-哲学家进餐问题" class="headerlink" title="1. 哲学家进餐问题"></a>1. 哲学家进餐问题</h2><h2 id="2-读者写者问题"><a href="#2-读者写者问题" class="headerlink" title="2. 读者写者问题"></a>2. 读者写者问题</h2><hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/qq_38998213/article/details/87899231" target="_blank" rel="noopener">管程的理解</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">进程调度算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-19 02:00:00" itemprop="dateCreated datePublished" datetime="2020-04-19T02:00:00+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-28 00:26:10" itemprop="dateModified" datetime="2020-04-28T00:26:10+08:00">2020-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="进程调度算法："><a href="#进程调度算法：" class="headerlink" title="进程调度算法："></a>进程调度算法：</h1><p>根据系统的资源分配策略所规定的资源分配算法；不同的环境调度算法不同。</p>
-<h2 id="1-批处理系统"><a href="#1-批处理系统" class="headerlink" title="1.批处理系统"></a>1.批处理系统</h2><p>批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
-<blockquote>
-<h3 id="1-1-先来先服务-first-come-first-serverd（FCFS）"><a href="#1-1-先来先服务-first-come-first-serverd（FCFS）" class="headerlink" title="1.1 先来先服务 first-come first-serverd（FCFS）"></a>1.1 先来先服务 first-come first-serverd（FCFS）</h3><blockquote>
-<p>非抢占式的调度算法，按照请求的顺序进行调度。<br>当每个进程就绪后，它加入就绪队列。当前正运行的进程停止执行，选择在就绪队列中存在时间最长的进程运行。<br>该算法既可以用于作业调度，也可以用于进程调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
-</blockquote>
-<h3 id="1-2-短作业优先-shortest-job-first（SJF）"><a href="#1-2-短作业优先-shortest-job-first（SJF）" class="headerlink" title="1.2 短作业优先 shortest job first（SJF）"></a>1.2 短作业优先 shortest job first（SJF）</h3><blockquote>
-<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。从后备队列中选择一个或若干个估计运行时间最短的作业，将它们调入内存运行。<br>长作业有可能会<strong>饿死（不是“死锁”）</strong>，处于一直等待短作业执行完毕的状态。因为如果一直有短作业到来，那么长作业永远得不到调度。</p>
-</blockquote>
-<h3 id="1-3-最短剩余时间优先-shortest-remaining-time-next（SRTN）"><a href="#1-3-最短剩余时间优先-shortest-remaining-time-next（SRTN）" class="headerlink" title="1.3 最短剩余时间优先 shortest remaining time next（SRTN）"></a>1.3 最短剩余时间优先 shortest remaining time next（SRTN）</h3><blockquote>
-<p>抢占式的调度算法，最短作业优先的抢占式版本。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较。如果新的进程需要的时间更少，则挂起当前进程，运行新的进程，否则新的进程等待。<strong>存在长进程饥饿的危险。</strong></p>
-</blockquote>
-</blockquote>
-<h2 id="2-交互式系统"><a href="#2-交互式系统" class="headerlink" title="2.交互式系统"></a>2.交互式系统</h2><p>交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
-<blockquote>
-<h3 id="2-1-时间片轮转"><a href="#2-1-时间片轮转" class="headerlink" title="2.1 时间片轮转"></a>2.1 时间片轮转</h3><blockquote>
-<p>按 FCFS 的原则将所有就绪进程排成队列。每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。<br>算法的效率和<strong>时间片的大小</strong>有很大关系：<br>进程切换要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间；如果时间片过长，那么实时性就不能得到保证。</p>
-</blockquote>
-<h3 id="2-2-优先级调度"><a href="#2-2-优先级调度" class="headerlink" title="2.2 优先级调度"></a>2.2 优先级调度</h3><blockquote>
-<p>为每个进程分配一个优先级，按优先级进行调度。<br>为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
-</blockquote>
-<h3 id="2-3-多级反馈队列"><a href="#2-3-多级反馈队列" class="headerlink" title="2.3 多级反馈队列"></a>2.3 多级反馈队列</h3><blockquote>
-<p>公认的一种较好的进程调度算法。<br>若一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。<br>多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,..(随着优先降低时间片变长)。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次（1 + 2 + 4 + 8 + 16 + 32 + 64 &gt; 100）。<br>每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。<br>可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
-</blockquote>
-</blockquote>
-<h2 id="3-实时系统"><a href="#3-实时系统" class="headerlink" title="3.实时系统"></a>3.实时系统</h2><blockquote>
-<p>实时系统要求一个请求在一个确定时间内得到响应。<br>分为硬实时和软实时，前者必须满足绝对的截止时间，后者可以容忍一定的超时。</p>
-</blockquote>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://www.cnblogs.com/szitcast/p/10927375.html" target="_blank" rel="noopener">进程常用调度算法</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/20200419_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/" class="post-title-link" itemprop="url">进程状态</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-04-19 01:00:00 / 修改时间：12:53:01" itemprop="dateCreated datePublished" datetime="2020-04-19T01:00:00+08:00">2020-04-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>229</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="进程状态："><a href="#进程状态：" class="headerlink" title="进程状态："></a>进程状态：</h1><blockquote>
-<ul>
-<li>就绪状态（Ready）：等待被调度</li>
-<li>运行状态（Running）</li>
-<li>阻塞状态（Waiting）：等待资源<h2 id="状态间切换要注意："><a href="#状态间切换要注意：" class="headerlink" title="状态间切换要注意："></a><strong>状态间切换要注意：</strong></h2></li>
-</ul>
-<ol>
-<li>只有就绪态和运行态可以相互转换，其它的都是单向转换。就绪状态的进程通过调度算法从而获得 CPU 时间，转为运行状态；而运行状态的进程，在分配给它的 CPU 时间片用完之后就会转为就绪状态，等待下一次调度。</li>
-<li>阻塞状态是缺少需要的资源从而由运行状态转换而来，但是该资源不包括 CPU 时间，缺少 CPU 时间会从运行态转换为就绪态。</li>
-</ol>
-</blockquote>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1456,20 +1951,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1520,12 +2015,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">15k</span>
+    <span title="站点总字数">31k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">13 分钟</span>
+    <span title="站点阅读时长">29 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>
