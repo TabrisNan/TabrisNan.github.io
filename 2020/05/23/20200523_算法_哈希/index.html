@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"tabrisnan.github.io","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="哈希哈希函数 一般数值直接取模就可以(一般模一个质数，并且该质数离2的整次幂尽量远)； 如果有冲突，则需要处理解决，因此有了哈希表的不同存储方式。  哈希存储结构开放寻址法以及拉链法用于处理冲突。 开放寻址法根据哈希函数值查找存储位置，若存储位置已被占用，则向后查询第一个可用位置并放入。 拉链法哈希函数值相同的数将会存储在哈希值对应处的链表上。 123456789101112131415&#x2F;&#x2F;插入操">
+  <meta name="description" content="哈希STL 中的哈希STL 中的哈希表可以使用 unordered_map 和 unordered_set 。 哈希函数 一般数值直接取模就可以(一般模一个质数，并且该质数离2的整次幂尽量远)； 如果有冲突，则需要处理解决，因此有了哈希表的不同存储方式。  哈希存储结构开放寻址法以及拉链法用于处理冲突。 开放寻址法根据哈希函数值查找存储位置，若存储位置已被占用，则向后查询第一个可用位置并放入。 拉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="哈希">
 <meta property="og:url" content="http://tabrisnan.github.io/2020/05/23/20200523_%E7%AE%97%E6%B3%95_%E5%93%88%E5%B8%8C/index.html">
 <meta property="og:site_name" content="TabrisChen">
-<meta property="og:description" content="哈希哈希函数 一般数值直接取模就可以(一般模一个质数，并且该质数离2的整次幂尽量远)； 如果有冲突，则需要处理解决，因此有了哈希表的不同存储方式。  哈希存储结构开放寻址法以及拉链法用于处理冲突。 开放寻址法根据哈希函数值查找存储位置，若存储位置已被占用，则向后查询第一个可用位置并放入。 拉链法哈希函数值相同的数将会存储在哈希值对应处的链表上。 123456789101112131415&#x2F;&#x2F;插入操">
+<meta property="og:description" content="哈希STL 中的哈希STL 中的哈希表可以使用 unordered_map 和 unordered_set 。 哈希函数 一般数值直接取模就可以(一般模一个质数，并且该质数离2的整次幂尽量远)； 如果有冲突，则需要处理解决，因此有了哈希表的不同存储方式。  哈希存储结构开放寻址法以及拉链法用于处理冲突。 开放寻址法根据哈希函数值查找存储位置，若存储位置已被占用，则向后查询第一个可用位置并放入。 拉">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-23T12:34:16.000Z">
-<meta property="article:modified_time" content="2020-05-23T15:30:12.017Z">
+<meta property="article:modified_time" content="2020-05-23T15:45:17.156Z">
 <meta property="article:author" content="Tabris Chen">
 <meta property="article:tag" content="哈希">
 <meta property="article:tag" content="字符串哈希">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">90</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">100</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">30</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">34</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -227,7 +227,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-05-23 20:34:16 / 修改时间：23:30:12" itemprop="dateCreated datePublished" datetime="2020-05-23T20:34:16+08:00">2020-05-23</time>
+              <time title="创建时间：2020-05-23 20:34:16 / 修改时间：23:45:17" itemprop="dateCreated datePublished" datetime="2020-05-23T20:34:16+08:00">2020-05-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>772</span>
+              <span>819</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -271,7 +271,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h1><h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><ol>
+        <h1 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h1><h2 id="STL-中的哈希"><a href="#STL-中的哈希" class="headerlink" title="STL 中的哈希"></a>STL 中的哈希</h2><p>STL 中的哈希表可以使用 <code>unordered_map</code> 和 <code>unordered_set</code> 。</p>
+<h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><ol>
 <li>一般数值直接取模就可以(<strong>一般模一个质数，并且该质数离2的整次幂尽量远</strong>)；</li>
 <li>如果有冲突，则需要处理解决，因此有了哈希表的不同存储方式。</li>
 </ol>
@@ -323,7 +324,10 @@
     <a href="/2020/05/23/20200523_%E7%AE%97%E6%B3%95_%E5%A0%86%E6%8E%92%E5%BA%8F/" rel="prev" title="堆排序">
       <i class="fa fa-chevron-left"></i> 堆排序
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/24/20200524_%E7%AE%97%E6%B3%95_%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" rel="next" title="拓扑排序">
+      拓扑排序 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -383,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希"><span class="nav-number">1.</span> <span class="nav-text">哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希函数"><span class="nav-number">1.1.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希存储结构"><span class="nav-number">1.2.</span> <span class="nav-text">哈希存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开放寻址法"><span class="nav-number">1.2.1.</span> <span class="nav-text">开放寻址法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉链法"><span class="nav-number">1.2.2.</span> <span class="nav-text">拉链法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串哈希"><span class="nav-number">1.3.</span> <span class="nav-text">字符串哈希</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希"><span class="nav-number">1.</span> <span class="nav-text">哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#STL-中的哈希"><span class="nav-number">1.1.</span> <span class="nav-text">STL 中的哈希</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希函数"><span class="nav-number">1.2.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希存储结构"><span class="nav-number">1.3.</span> <span class="nav-text">哈希存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开放寻址法"><span class="nav-number">1.3.1.</span> <span class="nav-text">开放寻址法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉链法"><span class="nav-number">1.3.2.</span> <span class="nav-text">拉链法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串哈希"><span class="nav-number">1.4.</span> <span class="nav-text">字符串哈希</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -399,7 +403,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -412,7 +416,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-count">100</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -463,12 +467,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">55k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">50 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>

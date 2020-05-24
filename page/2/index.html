@@ -126,7 +126,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">90</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">100</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">30</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">34</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,372 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E9%AB%98%E7%B2%BE%E5%BA%A6%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E9%AB%98%E7%B2%BE%E5%BA%A6%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">高精度运算</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-21 16:35:16" itemprop="dateCreated datePublished" datetime="2020-05-21T16:35:16+08:00">2020-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-23 23:33:06" itemprop="dateModified" datetime="2020-05-23T23:33:06+08:00">2020-05-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="高精度加减乘除，用于处理大整数运算，不但远超INT型上界，也可以远超-Long-Long-型上界。"><a href="#高精度加减乘除，用于处理大整数运算，不但远超INT型上界，也可以远超-Long-Long-型上界。" class="headerlink" title="高精度加减乘除，用于处理大整数运算，不但远超INT型上界，也可以远超 Long Long 型上界。"></a>高精度加减乘除，用于处理大整数运算，不但远超INT型上界，也可以远超 Long Long 型上界。</h4><h2 id="大整数的保存方法"><a href="#大整数的保存方法" class="headerlink" title="大整数的保存方法"></a>大整数的保存方法</h2><p>使用vector从个位开始往高位存。</p>
+<h2 id="正整数高精度加法"><a href="#正整数高精度加法" class="headerlink" title="正整数高精度加法"></a>正整数高精度加法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_val</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; val, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vals)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = val.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        vals.push_back(val[i] - <span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = a.<span class="built_in">size</span>(), n = b.<span class="built_in">size</span>(), t = <span class="number">0</span>;<span class="comment">//t为进位符号</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m || i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; m) t += a[i];</span><br><span class="line">        <span class="keyword">if</span>(i &lt; n) t += b[i];</span><br><span class="line">        res.push_back(t % <span class="number">10</span>);</span><br><span class="line">        t /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(t) res.push_back(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> val1, val2;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; val1 &gt;&gt;val2;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, b, res;</span><br><span class="line">    set_val(val1, a), set_val(val2, b);</span><br><span class="line">    sum(a, b, res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = res.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; res[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="正整数高精度减法"><a href="#正整数高精度减法" class="headerlink" title="正整数高精度减法"></a>正整数高精度减法</h2><p>考虑结果为负数的情况</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_val</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; val, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vals)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = val.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        vals.push_back(val[i] - <span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = a.<span class="built_in">size</span>(), n = b.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(m != n) <span class="keyword">return</span> m &lt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] &gt; b[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a[i] == b[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sub</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; b, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = a.<span class="built_in">size</span>(), n = b.<span class="built_in">size</span>(), t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; m || k &lt; n; ++k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(k &lt; m) i = a[k];</span><br><span class="line">        <span class="keyword">if</span>(k &lt; n) j = b[k];</span><br><span class="line">        t = i - j - t;</span><br><span class="line">        res.push_back((t + <span class="number">10</span>) % <span class="number">10</span>);</span><br><span class="line">        t = <span class="number">1</span> - (t + <span class="number">10</span>) / <span class="number">10</span>;<span class="comment">//判断当前位是否需要借位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(res.<span class="built_in">size</span>() &gt; <span class="number">1</span> &amp;&amp; res.back() == <span class="number">0</span>)</span><br><span class="line">        res.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> val1, val2;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; val1 &gt;&gt; val2;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, b, res;</span><br><span class="line">    set_val(val1, a), set_val(val2, b);</span><br><span class="line">    <span class="keyword">bool</span> isminus = cmp(a, b);</span><br><span class="line">    <span class="keyword">if</span>(isminus) sub(b, a, res);</span><br><span class="line">    <span class="keyword">else</span> sub(a, b, res);</span><br><span class="line">    <span class="keyword">if</span>(isminus) <span class="built_in">cout</span> &lt;&lt; <span class="string">"-"</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = res.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; res[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="高精度乘法（大数乘以一个较小数）"><a href="#高精度乘法（大数乘以一个较小数）" class="headerlink" title="高精度乘法（大数乘以一个较小数）"></a>高精度乘法（大数乘以一个较小数）</h2><p>其实两个大数也是可以做的。(<a href="https://leetcode-cn.com/problems/multiply-strings/" target="_blank" rel="noopener">LeetCode43.字符串相乘</a>)</p>
+<p>这种题目更为简单。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_val</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; val, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vals)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = val.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        vals.push_back(val[i] - <span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">int</span> b, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = a.<span class="built_in">size</span>(), t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        t += a[i] * b;</span><br><span class="line">        res.push_back(t % <span class="number">10</span>);</span><br><span class="line">        t /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(t) res.push_back(t);</span><br><span class="line">    <span class="keyword">while</span>(res.<span class="built_in">size</span>() &gt; <span class="number">1</span> &amp;&amp; res.back() == <span class="number">0</span>)</span><br><span class="line">        res.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> val1;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; val1 &gt;&gt; b;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, res;</span><br><span class="line">    set_val(val1, a);</span><br><span class="line">    mul(a, b, res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = res.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; res[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="高精度除法-一个大数除以一个较小数并求余数"><a href="#高精度除法-一个大数除以一个较小数并求余数" class="headerlink" title="高精度除法(一个大数除以一个较小数并求余数)"></a>高精度除法(一个大数除以一个较小数并求余数)</h2><p>这个就比较麻烦了。要明确除法是要从高位开始往低位运算的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_val</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; val, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vals)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = val.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        vals.push_back(val[i] - <span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">div</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">int</span> b, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res, <span class="keyword">int</span>&amp; mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m = a.<span class="built_in">size</span>(), t = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = m; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>((t * <span class="number">10</span> + a[i]) / b)<span class="comment">//够除</span></span><br><span class="line">		&#123;</span><br><span class="line">			res.push_back((t * <span class="number">10</span> + a[i]) / b);</span><br><span class="line">			t = (<span class="number">10</span> * t + a[i]) % b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">//不够除，要借一位</span></span><br><span class="line">		&#123;</span><br><span class="line">			res.push_back(<span class="number">0</span>);</span><br><span class="line">			t = t * <span class="number">10</span> + a[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	mod = t;</span><br><span class="line">	reverse(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());<span class="comment">//注意翻转</span></span><br><span class="line">	<span class="keyword">while</span>(res.<span class="built_in">size</span>() &gt; <span class="number">1</span> &amp;&amp; res.back() == <span class="number">0</span>)</span><br><span class="line">		res.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> val1;</span><br><span class="line">	<span class="keyword">int</span> b, mod;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; val1 &gt;&gt; b;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, res;</span><br><span class="line">	set_val(val1, a);</span><br><span class="line">	div(a, b, res, mod);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = res.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; res[i];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; mod &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/" class="post-title-link" itemprop="url">二分</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-21 16:34:16" itemprop="dateCreated datePublished" datetime="2020-05-21T16:34:16+08:00">2020-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-22 21:42:58" itemprop="dateModified" datetime="2020-05-22T21:42:58+08:00">2020-05-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>467</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="只要是有二段性质的问题，都可以二分。"><a href="#只要是有二段性质的问题，都可以二分。" class="headerlink" title="只要是有二段性质的问题，都可以二分。"></a>只要是有二段性质的问题，都可以二分。</h2><p>二分一定有解，但是这个解不一定是题目要求的解，因此要在二分得到解后判断这个解是否符合条件。</p>
+<h2 id="整数二分问题避免边界问题的一点套路"><a href="#整数二分问题避免边界问题的一点套路" class="headerlink" title="整数二分问题避免边界问题的一点套路"></a>整数二分问题避免边界问题的一点套路</h2><p>如果整数二分代码中有： $l = mid$，则此时的$mid$应该是更新为 $mid = l + r + 1$。</p>
+<p> 浮点数二分不必考虑此边界问题。</p>
+<h3 id="二分的代码比较简单，但是题目的二段性可以藏的很深。"><a href="#二分的代码比较简单，但是题目的二段性可以藏的很深。" class="headerlink" title="二分的代码比较简单，但是题目的二段性可以藏的很深。"></a>二分的代码比较简单，但是题目的二段性可以藏的很深。</h3><h2 id="一道简单的浮点数二分题："><a href="#一道简单的浮点数二分题：" class="headerlink" title="一道简单的浮点数二分题："></a>一道简单的浮点数二分题：</h2><h3 id="求数的三次方根"><a href="#求数的三次方根" class="headerlink" title="求数的三次方根"></a>求数的三次方根</h3> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">double</span> l, r;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">		l = n, r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		l = <span class="number">0</span>, r = n;</span><br><span class="line">	<span class="keyword">while</span> (r - l &gt; <span class="number">1e-8</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">double</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (mid &lt;= n / (mid * mid))</span><br><span class="line">			l = mid;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			r = mid;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; l &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95_/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/21/20200522_%E7%AE%97%E6%B3%95_%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95_/" class="post-title-link" itemprop="url">排序算法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-21 16:32:16" itemprop="dateCreated datePublished" datetime="2020-05-21T16:32:16+08:00">2020-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-23 23:31:18" itemprop="dateModified" datetime="2020-05-23T23:31:18+08:00">2020-05-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="快速排序，O-nlogn"><a href="#快速排序，O-nlogn" class="headerlink" title="快速排序，O($nlogn$)"></a>快速排序，O($nlogn$)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> vals[N], n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> i = l - <span class="number">1</span>, j = r + <span class="number">1</span>, mid = vals[i + j &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">do</span> ++i; <span class="keyword">while</span>(vals[i] &lt; mid);</span><br><span class="line">        <span class="keyword">do</span> --j; <span class="keyword">while</span>(vals[j] &gt; mid);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) swap(vals[i], vals[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(l, j), quick_sort(j + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;vals[i]);</span><br><span class="line">    quick_sort(<span class="number">1</span>, n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, vals[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速选择算法，O-n"><a href="#快速选择算法，O-n" class="headerlink" title="快速选择算法，O(n)"></a>快速选择算法，O(n)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> vals[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">quick_select</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l == r) <span class="keyword">return</span> vals[l];</span><br><span class="line">    <span class="keyword">int</span> i = l - <span class="number">1</span>, j = r + <span class="number">1</span>, mid = vals[i + j &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">do</span> ++i; <span class="keyword">while</span>(vals[i] &lt; mid);</span><br><span class="line">        <span class="keyword">do</span> --j; <span class="keyword">while</span>(vals[j] &gt; mid);</span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) swap(vals[i], vals[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = j - l + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(len &gt;= k) <span class="keyword">return</span> quick_select(l, j, k);</span><br><span class="line">    <span class="keyword">return</span> quick_select(j + <span class="number">1</span>, r, k - len);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;vals[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, quick_select(<span class="number">1</span>, n, k));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序，O-nlogn-，需要额外O-n-的空间"><a href="#归并排序，O-nlogn-，需要额外O-n-的空间" class="headerlink" title="归并排序，O($nlogn$)，需要额外O(n)的空间"></a>归并排序，O($nlogn$)，需要额外O(n)的空间</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> vals[N], temp[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> i = l, mid = l + r &gt;&gt; <span class="number">1</span>, j = mid + <span class="number">1</span>, k = <span class="number">1</span>;</span><br><span class="line">    merge_sort(l, mid), merge_sort(j, r);</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid &amp;&amp; j &lt;= r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(vals[i] &lt;= vals[j]) temp[k++] = vals[i++];</span><br><span class="line">        <span class="keyword">else</span> temp[k++] = vals[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i &lt;= mid) temp[k++] = vals[i++];</span><br><span class="line">    <span class="keyword">while</span>(j &lt;= r) temp[k++] = vals[j++];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = l, k = <span class="number">1</span>; i &lt;= r; ++i, ++k)</span><br><span class="line">        vals[i] = temp[k];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;vals[i]);</span><br><span class="line">    merge_sort(<span class="number">1</span>, n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, vals[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/20/20200517_%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tabris Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TabrisChen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/20/20200517_%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">装饰模式</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-20 22:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T22:00:00+08:00">2020-05-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-22 16:27:58" itemprop="dateModified" datetime="2020-05-22T16:27:58+08:00">2020-05-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>191</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h1><p>主要目的是为对象动态扩展功能（由于父类指针指向子类对象时，能够调用的函数只有子类从父类继承过去的实/虚函数，因此只能重写虚函数来扩充功能）。</p>
+<p>装饰模式有一个很明显的特征：装饰器类会继承原始基类，且装饰器类中会有原始基对象或指针。继承下来的意义在于可以重写虚函数添加新功能，但又可以通过原始基类指针调用。（我的理解，可能有点偏差）</p>
+<p><a href="images/装饰模式UML.png">!alt</a></p>
+<hr>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://item.jd.com/10079261.html" target="_blank" rel="noopener">《大话设计模式》</a><br><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1320,555 +1686,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/05/05/20200504_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E7%89%A9%E7%90%86%E5%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/05/20200504_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E7%89%A9%E7%90%86%E5%B1%82/" class="post-title-link" itemprop="url">物理层</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-05 22:00:00 / 修改时间：23:22:56" itemprop="dateCreated datePublished" datetime="2020-05-05T22:00:00+08:00">2020-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>560</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>物理层为设备之间的数据通信提供传输媒体及互连设备，为数据传输提供可靠的环境。</p>
-<h1 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h1><p>根据信息在传输线上的传送方向，分为以下三种通信方式：</p>
-<ul>
-<li>单工通信：单向传输</li>
-<li>半双工通信：双向交替传输</li>
-<li>全双工通信：双向同时传输</li>
-</ul>
-<h1 id="信号分类"><a href="#信号分类" class="headerlink" title="信号分类"></a>信号分类</h1><ul>
-<li>模拟信号：连续量</li>
-<li>数字信号：离散量，码元是代表不同离散数值的基本波形</li>
-</ul>
-<h1 id="基本带通调制方法"><a href="#基本带通调制方法" class="headerlink" title="基本带通调制方法"></a>基本带通调制方法</h1><p>带通调制把数字信号转换为模拟信号。</p>
-<ul>
-<li>调幅（AM）：调整振幅，垂直调整</li>
-<li>调频（FM）：调整频率，水平调整</li>
-<li>调相（PM）：初始相位的调整，移位调整。</li>
-</ul>
-<p><img src="images/调幅调频调相.jpg" alt="alt"></p>
-<h1 id="物理层设备（集线器、中继器）"><a href="#物理层设备（集线器、中继器）" class="headerlink" title="物理层设备（集线器、中继器）"></a>物理层设备（集线器、中继器）</h1><h2 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h2><ul>
-<li><p>诞生原因：由于存在损耗，在线路上传输的信号功率会逐渐衰减，衰减到一定程度时将造成信号失真，因此会导致接收错误。</p>
-</li>
-<li><p>中继器的功能：对信号进行再生和还原，对衰减的信号进行放大，保持与原数据相同，以增加信号传输的距离，延长网络的长度。简单来说，中继器就是在再生数字信号。</p>
-</li>
-</ul>
-<p><strong>中继器只将任何电缆段上的数据发送到另一端电缆上，它仅作用于信号的电气部分，并不管数据中是否有错误数据或不适于网段的数据。</strong></p>
-<h2 id="集线器（多口中继器）"><a href="#集线器（多口中继器）" class="headerlink" title="集线器（多口中继器）"></a>集线器（多口中继器）</h2><ul>
-<li>集线器的功能：对信号进行再生放大转发，对衰减的信号进行放大，接着转发到其他所有（除输入端口外）处于工作状态的端口上，以增加信号传输的距离，延长网络的长度。不具备定向传送信号的能力，属于共享式设备。（一般采用广播方式）</li>
-</ul>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/qq_37635157/article/details/104580707" target="_blank" rel="noopener">物理层设备</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/30/20200430_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E6%A6%82%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/30/20200430_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C_%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">网络概述</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 22:00:00" itemprop="dateCreated datePublished" datetime="2020-04-30T22:00:00+08:00">2020-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-06 09:17:35" itemprop="dateModified" datetime="2020-05-06T09:17:35+08:00">2020-05-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h1><p>以太网是一种计算机局域网技术。IEEE组织的IEEE 802.3标准制定了以太网的技术标准，它规定了包括物理层的连线、电子信号和介质访问层协议的内容。以太网是目前应用最普遍的局域网技术。<br>以太网有两类：第一类是经典以太网，第二类是交换式以太网，使用了一种称为交换机的设备连接不同的计算机。经典以太网是以太网的原始形式，运行速度从3~10 Mbps不等；而交换式以太网正是广泛应用的以太网，可运行在100、1000和10000Mbps那样的高速率，分别以快速以太网、千兆以太网和万兆以太网的形式呈现。</p>
-<h1 id="互联网是网络的网络"><a href="#互联网是网络的网络" class="headerlink" title="互联网是网络的网络"></a>互联网是网络的网络</h1><p>网络把主机连接起来，而互连网（internet）是把多种不同的网络连接起来，因此互连网是网络的网络。互联网（Internet）是全球范围的互连网。</p>
-<h1 id="ISP-网络服务提供商"><a href="#ISP-网络服务提供商" class="headerlink" title="ISP(网络服务提供商)"></a>ISP(网络服务提供商)</h1><p>互联网服务提供商 ISP 可以从互联网管理机构获得许多 IP 地址，同时拥有通信线路以及路由器等联网设备，个人或机构向 ISP 缴纳一定的费用就可以接入互联网。<br><img src="/images/ISP.png" alt="alt"></p>
-<p>目前的互联网是一种多层次 ISP 结构，ISP 根据覆盖面积的大小分为第一层 ISP、区域 ISP 和接入 ISP。互联网交换点 <strong>IXP</strong>(互联网交换中心，功能相当于计算机网络中所提及的交换机) 允许两个 ISP 直接相连而不用经过第三个 ISP。<br><img src="/images/ISP2.png" alt="alt"></p>
-<h1 id="主机之间的通信方式"><a href="#主机之间的通信方式" class="headerlink" title="主机之间的通信方式"></a>主机之间的通信方式</h1><ul>
-<li>客户-服务器（C(client)/S(server)）：客户是服务的请求方，服务器是服务的提供方。</li>
-<li>对等（P2P）：不区分客户和服务器。</li>
-</ul>
-<h1 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h1><p>分组是将一个数据包分成一个个更小的数据包的操作。</p>
-<h1 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h1><p>简单地讲，就是服务器与服务器之间的数据交换。</p>
-<h1 id="电路交换、报文交换和分组交换"><a href="#电路交换、报文交换和分组交换" class="headerlink" title="电路交换、报文交换和分组交换"></a>电路交换、报文交换和分组交换</h1><p><img src="images/电路交换报文交换分组交换.png" alt="alt"></p>
-<ul>
-<li><p><strong>电路交换</strong>：电路交换用于电话通信系统，两个用户要通信之前需要建立一条专用的物理链路，并且在整个通信过程中<strong>始终占用</strong>该链路。由于通信的过程中不可能一直在使用传输线路，因此电路交换对线路的利用率很低，往往不到 10%。电路交换的三个阶段：1.建立连接，2.数据传输，3.释放连接</p>
-</li>
-<li><p><strong>报文交换</strong>(不常用)：整个报文先传输到相邻的结点，全部存储下来后查找转发表，转发到下一个结点。</p>
-</li>
-<li><p><strong>分组交换</strong>：单个分组(报文的一部分)传送到相邻结点，相邻结点存储下来后查找转发表，转发到下一个结点，即是一种采取把小数据包存储转发传输的机制。每个分组都有首部和尾部，包含了源地址和目的地址等控制信息，在同一个传输线路上同时传输多个分组互相不会影响，因此在同一条传输线路上允许同时传输多个分组，也就是说分组交换不需要占用传输线路。类比于邮局通信系统，邮局收到一份邮件之后，先存储下来，然后把相同目的地的邮件一起转发到下一个目的地，这个过程就是存储转发过程，分组交换也使用了存储转发过程。</p>
-</li>
-</ul>
-<h1 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h1><p>指的是单位时间传送的比特数，其单位是 b/s(比特每秒)。一个比特(bit)就是一个二进制数字中的一个 1 或 0。 </p>
-<h1 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h1><p>在计算机网络中，带宽用来表示通信线路的数据传输能力，因此网络带宽指的是在单位时间内从网络中的某一点到另一点所能通过的最高速率。</p>
-<h1 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h1><p>时延指的是数据从网络的一端传送到另一端所需的时间。<br><strong>总时延 = 排队时延 + 处理时延 + 传输时延（发送时延）+ 传播时延</strong></p>
-<ul>
-<li><p><strong>排队时延</strong>：分组在进入路由器后要先在输入队列中等待处理。在路由器确定了转发接口后还需要在输出队列中等待转发，所以就产生了排队时延。分组在路由器的输入队列和输出队列中排队等待的时间，取决于网络当前的通信量。</p>
-</li>
-<li><p><strong>处理时延</strong>：主机或者路由器在接受到分组时候要花费一定的时间进行处理，例如分析分组的首部，从分组中提取数据部分，运行差错检验或是查找适当的路由等等。</p>
-</li>
-<li><p><strong>传输时延（发送时延）</strong>：主机或者路由器发送数据帧所需要的时间。<br><img src="images/传输时延计算公式.png" alt="alt"></p>
-</li>
-<li><p><strong>传播时延</strong>：电磁波在信道中传播一定距离需要花费的时间<br><img src="images/传播时延计算公式.png" alt="alt"></p>
-</li>
-</ul>
-<h1 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h1><p><img src="/images/计算机网络结构体系.png" alt="alt"></p>
-<h1 id="1-五层协议："><a href="#1-五层协议：" class="headerlink" title="1. 五层协议："></a>1. 五层协议：</h1><ul>
-<li><p><strong>应用层</strong>：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。</p>
-</li>
-<li><p><strong>传输层</strong>：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括<strong>两种</strong>协议：<strong>传输控制协议 TCP</strong>，提供<strong>面向连接、可靠的</strong>数据传输服务，数据单位为报文段；<strong>用户数据报协议 UDP</strong>，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。</p>
-</li>
-<li><p><strong>网络层</strong>：为主机提供数据传输服务。而传输层协议是为主机中的进程提供数据传输服务。网络层把传输层传递下来的报文段或者用户数据报封装成分组。</p>
-</li>
-<li><p><strong>数据链路层</strong>：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</p>
-</li>
-<li><p><strong>物理层</strong>：考虑的是怎样在传输媒体上传输数据比特流，而不是指具体的传输媒体。物理层的作用是尽可能屏蔽传输媒体和通信手段的差异，使数据链路层感觉不到这些差异。</p>
-</li>
-</ul>
-<h1 id="2-OSI七层模型"><a href="#2-OSI七层模型" class="headerlink" title="2. OSI七层模型"></a>2. OSI七层模型</h1><ul>
-<li><p><strong>表示层</strong>：数据压缩、加密以及数据描述，这使得应用程序不必关心在各台主机中数据内部格式不同的问题。</p>
-</li>
-<li><p><strong>会话层</strong>：建立及管理会话。</p>
-</li>
-</ul>
-<p><strong>五层协议没有表示层和会话层，而是将这些功能留给应用程序开发者处理。</strong></p>
-<h1 id="3-TCP-IP"><a href="#3-TCP-IP" class="headerlink" title="3. TCP/IP"></a>3. TCP/IP</h1><p>它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。</p>
-<p>TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。</p>
-<h1 id="数据在各层之间的传递过程"><a href="#数据在各层之间的传递过程" class="headerlink" title="数据在各层之间的传递过程"></a>数据在各层之间的传递过程</h1><p>在向下层传递的过程中，需要添加下层协议所需要的首部或者尾部，而在向上的过程中不断拆开首部和尾部。</p>
-<p>路由器只有下面三层协议，因为路由器位于网络核心中，不需要为进程或者应用程序提供服务，因此也就不需要传输层和应用层。</p>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/u012557765/article/details/81638446" target="_blank" rel="noopener">电路交换，报文交换，分组交换</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/29/20200429_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E7%BC%96%E8%AF%91%E4%B8%8E%E9%93%BE%E6%8E%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/29/20200429_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E7%BC%96%E8%AF%91%E4%B8%8E%E9%93%BE%E6%8E%A5/" class="post-title-link" itemprop="url">编译与链接</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-29 22:00:00" itemprop="dateCreated datePublished" datetime="2020-04-29T22:00:00+08:00">2020-04-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-30 09:53:10" itemprop="dateModified" datetime="2020-04-30T09:53:10+08:00">2020-04-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="编译系统"><a href="#编译系统" class="headerlink" title="编译系统"></a>编译系统</h1><p>一个hello.c程序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello, world\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在Unix系统上，由编译器把源文件转换为目标文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o hello hello.c</span><br></pre></td></tr></table></figure>
-<p>对于上述gcc命令，不跟任何的选项的话，会默认执行预处理、编译、汇编、链接这整个过程；如果程序没有错，就会得到一个可执行文件，默认为a.out。</p>
-<blockquote>
-<ul>
-<li>-E选项：提示编译器执行完预处理就停下来，后边的编译、汇编、链接就先不执行了。</li>
-<li>-S选项：提示编译器执行完编译就停下来，不去执行汇编和链接了。</li>
-<li>-c选项：提示编译器执行完汇编就停下来。</li>
-</ul>
-</blockquote>
-<p>以上三种选项限定了编译器执行操作的停止时间，而不是单独的将某一步拎出来执行。</p>
-<blockquote>
-<ul>
-<li><p>-o选项：输出名字的参数，指定输出的文件名；不用-o则一般会在当前文件夹下生成默认的a.out文件作为可执行程序</p>
-</li>
-<li><p>-O选项：对程序进行优化编译、链接，采用这个选项，整个源代码会在编译、链接过程中进行优化处理，这样产生的可执行文件的执行效率可以提高，但是，编译、链接的速度就相应地要慢一些。比如氧气优化-O2。（吸口氧，呼呼）</p>
-</li>
-</ul>
-</blockquote>
-<p>编译的整个过程如下：<br><img src="/images/编译系统.jpg" alt="alt"></p>
-<blockquote>
-<ul>
-<li>预处理阶段(hello.c -&gt; hello.i)：预处理器（cpp）根据以字符#开头的命令，修改原始的C程序。处理包括：#include，#define，条件编译指令(#if，#ifdef…)，删除注释等内容；添加行号和文件标识名；保留所有的#pragma编译指令(留待编译器使用)</li>
-<li>编译阶段(hello.i -&gt; hello.s)：翻译成汇编文件；</li>
-<li>汇编阶段(hello.s -&gt; hello.o)：将汇编文件翻译成可重定位目标文件；汇编器将 hello.s 翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序的格式，并将结果保存在目标文件 hello.o 中。 hello.o 文件是一个二进制文件，它的字节编码是机器语言指令而不是字符。</li>
-<li>链接阶段(hello.o + 其他.o文件 -&gt; hello)：在本例中调用了 printf() 函数，因此需要使用链接器将重定位目标文件 hello.o 和 printf.o 等单独预编译好的目标文件进行合并，得到最终的可执行目标文件（简称可执行文件，可以被加载到内存中，由系统执行）。</li>
-</ul>
-</blockquote>
-<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><blockquote>
-<ul>
-<li>库是写好的，现有的，成熟的，可以复用的代码。现实中每个程序都要依赖很多基础的底层库。</li>
-<li>本质上来讲，库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。</li>
-</ul>
-</blockquote>
-<h1 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h1><p>静态链接器以一组可重定位目标文件为输入，生成一个完全链接的可执行目标文件作为输出；在链接阶段，要把所有需要的函数的二进制代码都包含到可执行文件中去。</p>
-<p><strong>优点：</strong></p>
-<blockquote>
-<ul>
-<li>在可执行程序中具备了执行程序所需要的所有东西，执行时运行速度快。</li>
-</ul>
-</blockquote>
-<p><strong>缺点：</strong></p>
-<blockquote>
-<ul>
-<li>浪费空间：每个可执行程序对需要的目标文件都有一份副本，目标文件可能会在内存中有多个副本。</li>
-<li>更新困难：每当库函数的代码被修改，就需要重新进行编译链接形成可执行程序。</li>
-</ul>
-</blockquote>
-<p>链接器主要完成以下两个任务：</p>
-<blockquote>
-<ul>
-<li>符号解析：每个符号对应于一个函数、一个全局变量或一个静态变量，符号解析的目的是将每个符号引用与一个符号定义关联起来。</li>
-<li>重定位：链接器通过把每个符号定义与一个内存位置关联起来，然后修改所有对这些符号的引用，使得它们指向这个内存位置。</li>
-</ul>
-</blockquote>
-<p><img src="/images/静态链接.jpg" alt="alt"></p>
-<h1 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h1><p>为了解决静态链接中：空间浪费、更新困难两大问题。动态链接把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件。</p>
-<p><strong>特点：</strong></p>
-<blockquote>
-<ul>
-<li>在给定的文件系统中一个动态库只有一个文件，所有引用该库的可执行目标文件都共享这个文件，它不会被复制到引用它的可执行文件中;</li>
-<li>在内存中，一个共享库的已编译程序的机器代码的一个副本可以被不同的正在运行的进程共享。</li>
-<li>Linux 系统：<strong>.so</strong> 后缀;</li>
-<li>Windows 系统：<strong>.DLL</strong> 后缀;</li>
-</ul>
-</blockquote>
-<p><strong>优点：</strong></p>
-<blockquote>
-<ul>
-<li>节省空间：因为即使所有程序都依赖都一个库，但是该库在内存中只存在一个副本。</li>
-<li>更新方便：因为更新时只需要替换原来的目标文件，而无需将所有的程序再重新链接一遍。当程序下一次运行时，新版本的目标文件会自动加载到内存中并且链接起来。</li>
-</ul>
-</blockquote>
-<p><strong>缺点：</strong></p>
-<blockquote>
-<ul>
-<li>由于是运行时加载，可能会影响程序的前期执行性能。</li>
-</ul>
-</blockquote>
-<p><img src="/images/动态链接.jpg" alt="alt"></p>
-<h1 id="目标文件"><a href="#目标文件" class="headerlink" title="目标文件"></a>目标文件</h1><blockquote>
-<ul>
-<li>可执行目标文件：可以直接在内存中执行；</li>
-<li>可重定位目标文件：可与其它可重定位目标文件在链接阶段合并，创建一个可执行目标文件；</li>
-<li>共享目标文件：这是一种特殊的可重定位目标文件，可以在运行时被动态加载进内存并链接；</li>
-</ul>
-</blockquote>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a><br><a href="https://blog.csdn.net/guaiguaihenguai/article/details/81160310" target="_blank" rel="noopener">编译和链接的过程</a><br><a href="https://www.cnblogs.com/alway-july/p/7953986.html" target="_blank" rel="noopener">gcc -o hello hello.c 执行过程</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://tabrisnan.github.io/2020/04/28/20200428_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tabris Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TabrisChen">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/20200428_%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F_%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">设备管理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-28 04:00:00" itemprop="dateCreated datePublished" datetime="2020-04-28T04:00:00+08:00">2020-04-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-29 01:04:07" itemprop="dateModified" datetime="2020-04-29T01:04:07+08:00">2020-04-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>750</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h1><ul>
-<li><strong>盘面</strong>（Platter）：一个磁盘有多个盘面；</li>
-<li><strong>磁道</strong>（Track）：盘面上的圆形带状区域，一个盘面可以有多个磁道；</li>
-<li><strong>扇区</strong>（Track Sector）：磁道上的一个弧段，一个磁道可以有多个扇区，它是最小的物理储存单位，目前主要有 512 bytes 与 4 K 两种大小；</li>
-<li><strong>磁头</strong>（Head）：与盘面非常接近，能够将盘面上的磁场转换为电信号（读），或者将电信号转换为盘面的磁场（写）；</li>
-<li><strong>制动手臂</strong>（Actuator arm）：用于在磁道之间移动磁头；</li>
-<li><strong>主轴</strong>（Spindle）：使整个盘面转动。</li>
-</ul>
-<h1 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h1><p>读写一个磁盘块的时间的影响因素有：</p>
-<blockquote>
-<ul>
-<li><strong>旋转时间</strong>（主轴转动盘面，使得磁头移动到适当的扇区上）</li>
-<li><strong>寻道时间</strong>（制动手臂移动，使得磁头移动到适当的磁道上）</li>
-<li><strong>实际的数据传输时间</strong></li>
-</ul>
-</blockquote>
-<p>其中，寻道时间最长，因此磁盘调度的主要目标是使磁盘的平均寻道时间最短。</p>
-<h2 id="1-先来先服务-FCFS-First-Come-First-Served"><a href="#1-先来先服务-FCFS-First-Come-First-Served" class="headerlink" title="1. 先来先服务(FCFS, First Come First Served)"></a>1. 先来先服务(FCFS, First Come First Served)</h2><p>按照磁盘请求的顺序进行调度。<br>优点是公平和简单。缺点也很明显，因为未对寻道做任何优化，使平均寻道时间可能较长。</p>
-<h2 id="2-最短寻道时间优先-SSTF-Shortest-Seek-Time-First"><a href="#2-最短寻道时间优先-SSTF-Shortest-Seek-Time-First" class="headerlink" title="2. 最短寻道时间优先(SSTF, Shortest Seek Time First)"></a>2. 最短寻道时间优先(SSTF, Shortest Seek Time First)</h2><p>优先调度与当前磁头所在磁道距离最近的磁道。</p>
-<p>虽然平均寻道时间比较低，但是不够公平。如果新到达的磁道请求总是比一个在等待的磁道请求近，那么在等待的磁道请求会一直等待下去，也就是出现饥饿现象。具体来说，两端的磁道请求更容易出现饥饿现象。</p>
-<h2 id="3-电梯算法-SCAN，也称扫描算法"><a href="#3-电梯算法-SCAN，也称扫描算法" class="headerlink" title="3.电梯算法(SCAN，也称扫描算法)"></a>3.电梯算法(SCAN，也称扫描算法)</h2><p>电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</p>
-<p>电梯算法和电梯的运行过程类似，总是按一个方向来进行磁盘调度，直到该方向上没有未完成的磁盘请求，然后改变方向。</p>
-<p>因为考虑了移动方向，因此所有的磁盘请求都会被满足，解决了 SSTF 的饥饿问题。</p>
-<hr>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes" target="_blank" rel="noopener">CS-Notes</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1936,7 +1758,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1949,7 +1771,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-count">100</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2000,12 +1822,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">55k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">50 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
   </div>
